@@ -11,7 +11,8 @@ class Article(
     @ManyToOne var author: Author,
     var slug: String = title.toSlug(),
     var addedAt: LocalDateTime = LocalDateTime.now(),
-    @Id @GeneratedValue var id: Long? = null)
+    @Id @GeneratedValue val id: Long? = null) {
+}
 
 
 @Entity
@@ -20,4 +21,4 @@ class Author(
     var firstname: String,
     var lastname: String,
     var description: String? = null,
-    @Id @GeneratedValue var id: Long? = null)
+    @Id @GeneratedValue val id: Long? = null)

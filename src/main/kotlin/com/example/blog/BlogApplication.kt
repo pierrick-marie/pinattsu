@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Bean
 
 @SpringBootApplication
 class BlogApplication
-	
+
 fun main(args: Array<String>) {
 	runApplication<BlogApplication>(*args) {
 		setBannerMode(Banner.Mode.OFF)
