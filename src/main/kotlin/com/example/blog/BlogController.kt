@@ -13,7 +13,7 @@ class BlogController(private val repository: ArticleRepository, private val prop
 
 	@GetMapping("/")
 	fun blog(model: Model): String {
-		model["title"] = "Blog"
+		model["title"] = "My first Blog"
 		model["banner"] = properties.banner
 		model["articles"] = repository.findAllByOrderByAddedAtDesc().map { it.render() }
 

@@ -18,4 +18,3 @@ fun main(args: Array<String>) {
 		setBannerMode(Banner.Mode.OFF)
 	}
 }
-

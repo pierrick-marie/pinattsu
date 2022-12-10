@@ -33,7 +33,7 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
-	developmentOnly("org.springframework.boot:spring-boot-devtools")
+	compileOnly("org.springframework.boot:spring-boot-devtools")
 
 	runtimeOnly("com.h2database:h2")
 
@@ -42,8 +42,9 @@ dependencies {
 		exclude(module = "mockito-core")
 	}
 	testImplementation("org.junit.jupiter:junit-jupiter-api")
-	testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 	testImplementation("com.ninja-squad:springmockk:4.0.0")
+
+	testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 
 	kapt("org.springframework.boot:spring-boot-configuration-processor")
 }
