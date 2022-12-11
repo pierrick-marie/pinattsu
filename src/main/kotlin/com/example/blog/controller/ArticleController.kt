@@ -1,5 +1,6 @@
 package com.example.blog.controller
 
+import com.example.blog.BlogProperties
 import com.example.blog.entity.ArticleRepository
 import com.example.blog.entity.AuthorRepository
 import com.example.blog.entity.render
@@ -14,7 +15,10 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.server.ResponseStatusException
 
 @Controller
-class ArticleController(private val articleRepository: ArticleRepository, private val authorRepository: AuthorRepository) {
+class ArticleController(
+	private val articleRepository: ArticleRepository,
+	private val authorRepository: AuthorRepository,
+	private val properties: BlogProperties) {
 
 	private val logger: Logger = LogManager.getLogger(ArticleController::class.java)
 
@@ -23,6 +27,7 @@ class ArticleController(private val articleRepository: ArticleRepository, privat
 		val articles = articleRepository.findAll().map { it.render() }
 
 		model["title"] = "Articles"
+		model["banner"] = properties.banner
 		model["articles"] = articles
 
 		return "articles"
@@ -33,6 +38,7 @@ class ArticleController(private val articleRepository: ArticleRepository, privat
 		val articles = articleRepository.findByFormatedDate(formatedDate).map { it.render() }
 
 		model["title"] = "Articles for " + formatedDate
+		model["banner"] = properties.banner
 		model["articles"] = articles
 
 		return "articles"
@@ -42,11 +48,12 @@ class ArticleController(private val articleRepository: ArticleRepository, privat
 	fun author(@PathVariable login: String, model: Model): String {
 
 		val author = authorRepository.findByLogin(login)
-			?: throw ResponseStatusException(HttpStatus.FORBIDDEN, "This author does not exist")
+			?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "This author does not exist")
 
 		val articles = articleRepository.findByAuthor(author).map { it.render() }
 
 		model["title"] = "Articles for $author.firstName $author.lastName"
+		model["banner"] = properties.banner
 		model["articles"] = articles
 
 		return "articles"

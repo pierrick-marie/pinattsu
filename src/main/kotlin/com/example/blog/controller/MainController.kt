@@ -1,5 +1,6 @@
 package com.example.blog.controller
 
+import com.example.blog.BlogProperties
 import com.example.blog.entity.AuthorRepository
 import com.example.blog.entity.render
 import org.apache.logging.log4j.LogManager
@@ -13,18 +14,17 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.server.ResponseStatusException
 
 @Controller
-class MainController(private val authorRepository: AuthorRepository) {
+class MainController(
+	private val authorRepository: AuthorRepository,
+	private val properties: BlogProperties) {
 
 	private val logger: Logger = LogManager.getLogger(MainController::class.java)
 
 	@GetMapping("/")
 	fun blog(model: Model): String {
 
-		val authors = authorRepository.findAll()
-		// logger.info("Get authors: " + authors)
-
-		model["title"] = "Hello blog!"
-		model["authors"] = authors.map { it.render() }
+		model["title"] = properties.title
+		model["banner"] = properties.banner
 
 		return "blog"
 	}
