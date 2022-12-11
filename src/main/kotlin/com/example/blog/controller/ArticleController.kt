@@ -30,7 +30,7 @@ class ArticleController(
 		model["banner"] = properties.banner
 		model["articles"] = articles
 
-		return "articles"
+		return "entities/articles"
 	}
 
 	@GetMapping("/article/date/{formatedDate}")
@@ -41,7 +41,7 @@ class ArticleController(
 		model["banner"] = properties.banner
 		model["articles"] = articles
 
-		return "articles"
+		return "entities/articles"
 	}
 
 	@GetMapping("/article/author/{login}")
@@ -52,11 +52,11 @@ class ArticleController(
 
 		val articles = articleRepository.findByAuthor(author).map { it.render() }
 
-		model["title"] = "Articles for $author.firstName $author.lastName"
+		model["title"] = "Articles for ${author.firstName} ${author.lastName}"
 		model["banner"] = properties.banner
 		model["articles"] = articles
 
-		return "articles"
+		return "entities/articles"
 	}
 
 }

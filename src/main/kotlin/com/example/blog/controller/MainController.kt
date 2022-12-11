@@ -26,6 +26,6 @@ class MainController(
 		model["title"] = properties.title
 		model["banner"] = properties.banner
 
-		return "blog"
+		return "main"
 	}
 }

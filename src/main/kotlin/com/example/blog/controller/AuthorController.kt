@@ -30,7 +30,7 @@ class AuthorController(
 		model["banner"] = properties.banner
 		model["authors"] = authors.map { it.render() }
 
-		return "authors"
+		return "entities/authors"
 	}
 
 	@GetMapping("/author/{login}")
@@ -43,6 +43,6 @@ class AuthorController(
 		model["banner"] = properties.banner
 		model["author"] = author
 
-		return "author-profile"
+		return "entities/author-profile"
 	}
 }

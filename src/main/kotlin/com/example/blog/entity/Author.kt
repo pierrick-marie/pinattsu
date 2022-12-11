@@ -15,7 +15,7 @@ class Author (
 )
 
 fun Author.render() = RenderedAuthor (
-	login, firstName, lastName, description ?: "Default description"
+	login, firstName, lastName.uppercase(), description ?: "Default description"
 )
 
 data class RenderedAuthor (
