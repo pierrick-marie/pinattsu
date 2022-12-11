@@ -42,7 +42,7 @@ class ArticleController(private val articleRepository: ArticleRepository, privat
 	fun author(@PathVariable login: String, model: Model): String {
 
 		val author = authorRepository.findByLogin(login)
-			?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "This author does not exist")
+			?: throw ResponseStatusException(HttpStatus.FORBIDDEN, "This author does not exist")
 
 		val articles = articleRepository.findByAuthor(author).map { it.render() }
 
