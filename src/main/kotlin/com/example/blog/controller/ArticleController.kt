@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.server.ResponseStatusException
 
 @Controller
-class ArticleController(private val articleRepository: ArticleRepository) {
+class ArticleController(private val articleRepository: ArticleRepository, private val authorRepository: AuthorRepository) {
 
 	private val logger: Logger = LogManager.getLogger(ArticleController::class.java)
 
 	@GetMapping("/articles")
-	fun author(model: Model): String {
+	fun articles(model: Model): String {
 		val articles = articleRepository.findAll().map { it.render() }
 
 		model["title"] = "Articles"
@@ -28,15 +28,28 @@ class ArticleController(private val articleRepository: ArticleRepository) {
 		return "articles"
 	}
 
-	@GetMapping("/article/{date}")
-	fun author(@PathVariable login: String, model: Model): String {
-//		val author = authorRepository.findByLogin(login)
-//			?.render()
-//			?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "This author does not exist")
-//
-//		model["title"] = author.firstName
-//		model["author"] = author
+	@GetMapping("/article/date/{formatedDate}")
+	fun date(@PathVariable formatedDate: String, model: Model): String {
+		val articles = articleRepository.findByFormatedDate(formatedDate).map { it.render() }
+
+		model["title"] = "Articles for " + formatedDate
+		model["articles"] = articles
 
 		return "articles"
 	}
+
+	@GetMapping("/article/author/{login}")
+	fun author(@PathVariable login: String, model: Model): String {
+
+		val author = authorRepository.findByLogin(login)
+			?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "This author does not exist")
+
+		val articles = articleRepository.findByAuthor(author).map { it.render() }
+
+		model["title"] = "Articles for $author.firstName $author.lastName"
+		model["articles"] = articles
+
+		return "articles"
+	}
+
 }
