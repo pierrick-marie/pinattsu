@@ -1,0 +1,14 @@
+{{> head}}
+
+<h1>Articles</h1>
+
+{{#articles}}
+    <section>
+        <h2>Author {{author.firstName}} {{author.lastName}}</h2>
+        <p>
+            {{content}}
+        </p>
+    </section>
+{{/articles}}
+
+{{> foot}}
