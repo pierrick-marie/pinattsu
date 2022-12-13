@@ -1,12 +1,15 @@
 package com.example.blog.entity
 
+import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.Id
+import jakarta.persistence.UniqueConstraint
 import org.springframework.data.repository.CrudRepository
 
 @Entity
 class Author (
+	@Column(unique = true)
 	val login: String,
 	var firstName: String,
 	var lastName: String,

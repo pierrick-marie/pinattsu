@@ -3,14 +3,19 @@ package com.example.blog.controller
 import com.example.blog.entity.Author
 import com.example.blog.entity.render
 import com.example.blog.repository.AuthorRepository
+import org.apache.logging.log4j.LogManager
+import org.apache.logging.log4j.Logger
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
+import org.springframework.web.server.ResponseStatusException
 
 
 @RestController
 @RequestMapping("api/author")
 class RestAuthorController(private val authorRepository: AuthorRepository) {
+
+	private val logger: Logger = LogManager.getLogger(RestAuthorController::class.java)
 
 	@GetMapping("/all")
 	fun findAll() = authorRepository.findAll().map { it.render() }
@@ -27,6 +32,7 @@ class RestAuthorController(private val authorRepository: AuthorRepository) {
 				))
 			ResponseEntity<Author?>(_author, HttpStatus.CREATED)
 		} catch (e: Exception) {
+			logger.error(e.message)
 			ResponseEntity<Author?>(null, HttpStatus.INTERNAL_SERVER_ERROR)
 		}
 	}
