@@ -25,6 +25,3 @@ data class RenderedAuthor (
 	val description: String
 )
 
-interface AuthorRepository : CrudRepository<Author, Long> {
-	fun findByLogin(login: String): Author?
-}

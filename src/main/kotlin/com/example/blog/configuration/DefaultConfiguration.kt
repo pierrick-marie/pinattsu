@@ -1,9 +1,9 @@
 package com.example.blog.configuration
 
 import com.example.blog.entity.Article
-import com.example.blog.entity.ArticleRepository
+import com.example.blog.repository.ArticleRepository
 import com.example.blog.entity.Author
-import com.example.blog.entity.AuthorRepository
+import com.example.blog.repository.AuthorRepository
 import org.springframework.boot.ApplicationRunner
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

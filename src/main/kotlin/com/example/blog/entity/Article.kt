@@ -30,10 +30,3 @@ data class RenderedArticle(
 	val date: String,
 	val author: RenderedAuthor,
 )
-
-interface ArticleRepository : CrudRepository<Article, Long> {
-	fun findByAuthor(author: Author): Iterable<Article>
-	fun findByFormatedDate(formatedDate: String): Iterable<Article>
-
-	fun findAllByOrderByDateDesc(): Iterable<Article>
-}

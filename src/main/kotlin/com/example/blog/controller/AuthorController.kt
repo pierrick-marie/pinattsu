@@ -1,7 +1,7 @@
 package com.example.blog.controller
 
 import com.example.blog.property.DefaultProperties
-import com.example.blog.entity.AuthorRepository
+import com.example.blog.repository.AuthorRepository
 import com.example.blog.entity.render
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
