@@ -10,7 +10,7 @@ import org.springframework.data.repository.CrudRepository
 @Entity
 class Author (
 	@Column(unique = true)
-	val login: String,
+	var login: String,
 	var firstName: String,
 	var lastName: String,
 	var description: String? = null,

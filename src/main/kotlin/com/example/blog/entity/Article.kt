@@ -1,10 +1,9 @@
 package com.example.blog.entity
 
 import com.example.blog.extension.format
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.Id
-import jakarta.persistence.ManyToOne
+import jakarta.persistence.*
+import org.hibernate.annotations.OnDelete
+import org.hibernate.annotations.OnDeleteAction
 import org.springframework.data.repository.CrudRepository
 import java.time.LocalDateTime
 
@@ -15,6 +14,7 @@ class Article(
 	var date: LocalDateTime = LocalDateTime.now(),
 	var formatedDate: String = date.format(),
 	@ManyToOne
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	val author: Author,
 	@Id @GeneratedValue
 	var id: Long? = null,

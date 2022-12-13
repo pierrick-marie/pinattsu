@@ -1,9 +1,9 @@
 package com.example.blog.rest
 
 import com.example.blog.entity.Article
-import com.example.blog.entity.ArticleRepository
 import com.example.blog.entity.Author
-import com.example.blog.entity.AuthorRepository
+import com.example.blog.repository.ArticleRepository
+import com.example.blog.repository.AuthorRepository
 import com.ninjasquad.springmockk.MockkBean
 import io.mockk.every
 import org.apache.logging.log4j.LogManager

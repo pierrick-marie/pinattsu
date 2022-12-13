@@ -1,9 +1,9 @@
 package com.example.blog.reposotory
 
 import com.example.blog.entity.Article
-import com.example.blog.entity.ArticleRepository
 import com.example.blog.entity.Author
-import com.example.blog.entity.AuthorRepository
+import com.example.blog.repository.ArticleRepository
+import com.example.blog.repository.AuthorRepository
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired

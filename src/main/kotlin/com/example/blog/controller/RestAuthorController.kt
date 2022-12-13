@@ -1,56 +1,35 @@
 package com.example.blog.controller
 
 import com.example.blog.entity.Author
-import com.example.blog.entity.render
-import com.example.blog.repository.AuthorRepository
-import org.apache.logging.log4j.LogManager
-import org.apache.logging.log4j.Logger
+import com.example.blog.service.AuthorService
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.server.ResponseStatusException
+import java.util.*
 
 
 @RestController
 @RequestMapping("api/author")
-class RestAuthorController(private val authorRepository: AuthorRepository) {
+class RestAuthorController(private val authorService: AuthorService) {
 
-	private val logger: Logger = LogManager.getLogger(RestAuthorController::class.java)
+	@GetMapping
+	fun findAll() = authorService.getAll()
 
-	@GetMapping("/all")
-	fun findAll() = authorRepository.findAll().map { it.render() }
+	@PostMapping
+	@ResponseStatus(HttpStatus.CREATED)
+	fun createAuthor(@RequestBody author: Author) = authorService.create(author)
 
-	@PostMapping("/new")
-	fun createAuthor(@RequestBody author: Author): ResponseEntity<Author?>? {
-		return try {
-			val _author: Author = authorRepository
-				.save(Author(
-					login = author.login,
-					firstName = author.firstName,
-					lastName = author.lastName,
-					description = author.description ?: ""
-				))
-			ResponseEntity<Author?>(_author, HttpStatus.CREATED)
-		} catch (e: Exception) {
-			logger.error(e.message)
-			ResponseEntity<Author?>(null, HttpStatus.INTERNAL_SERVER_ERROR)
-		}
-	}
+	@PutMapping("/{id}")
+	fun updateAuthor(@PathVariable("id") id: Long, @RequestBody author: Author) = authorService.update(id, author)
 
-//	@PutMapping("/tutorials/{id}")
-//	fun updateTutorial(@PathVariable("id") id: Long, @RequestBody tutorial: Tutorial): ResponseEntity<Tutorial?>? {
-//		val tutorialData: Optional<Tutorial> = tutorialRepository.findById(id)
-//		return if (tutorialData.isPresent()) {
-//			val _tutorial: Tutorial = tutorialData.get()
-//			_tutorial.setTitle(tutorial.getTitle())
-//			_tutorial.setDescription(tutorial.getDescription())
-//			_tutorial.setPublished(tutorial.isPublished())
-//			ResponseEntity<Any?>(tutorialRepository.save(_tutorial), HttpStatus.OK)
-//		} else {
-//			ResponseEntity<Tutorial?>(HttpStatus.NOT_FOUND)
-//		}
-//	}
-//
+	@GetMapping("/{id}")
+	fun get(@PathVariable("id") id: Long) = authorService.getById(id)
+
+	@DeleteMapping("/{id}")
+	fun delete(@PathVariable("id") id: Long) = authorService.remove(id)
+
 //	@DeleteMapping("/tutorials/{id}")
 //	fun deleteTutorial(@PathVariable("id") id: Long): ResponseEntity<HttpStatus?>? {
 //		return try {
