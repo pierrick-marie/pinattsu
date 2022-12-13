@@ -1,0 +1,15 @@
+{{> header}}
+
+<h1>Articles</h1>
+
+{{#articles}}
+    <section>
+        <h2>{{author.firstName}} {{author.lastName}}</h2>
+        <strong>{{date}}</strong>
+        <p>
+            {{content}}
+        </p>
+    </section>
+{{/articles}}
+
+{{> footer}}

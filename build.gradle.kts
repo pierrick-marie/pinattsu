@@ -5,6 +5,7 @@ plugins {
 	id("io.spring.dependency-management") version "1.1.0"
 	kotlin("jvm") version "1.7.21"
 	kotlin("plugin.spring") version "1.7.21"
+
 	kotlin("plugin.jpa") version "1.7.21"
 	kotlin("plugin.allopen") version "1.6.21"
 	kotlin("kapt") version "1.7.22"
@@ -19,6 +20,12 @@ allOpen {
 group = "com.example"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_17
+
+configurations {
+	compileOnly {
+		extendsFrom(configurations.annotationProcessor.get())
+	}
+}
 
 repositories {
 	mavenCentral()
@@ -42,7 +49,6 @@ dependencies {
 	}
 	testImplementation("org.junit.jupiter:junit-jupiter-api")
 	testImplementation("com.ninja-squad:springmockk:4.0.0")
-
 	testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 
 	kapt("org.springframework.boot:spring-boot-configuration-processor")

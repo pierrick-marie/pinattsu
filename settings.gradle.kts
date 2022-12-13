@@ -1,1 +1,1 @@
-rootProject.name = "demo-spring-boot"
+rootProject.name = "blog"
