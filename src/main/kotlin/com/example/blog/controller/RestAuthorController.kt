@@ -29,14 +29,4 @@ class RestAuthorController(private val authorService: AuthorService) {
 
 	@DeleteMapping("/{id}")
 	fun delete(@PathVariable("id") id: Long) = authorService.remove(id)
-
-//	@DeleteMapping("/tutorials/{id}")
-//	fun deleteTutorial(@PathVariable("id") id: Long): ResponseEntity<HttpStatus?>? {
-//		return try {
-//			tutorialRepository.deleteById(id)
-//			ResponseEntity<HttpStatus?>(HttpStatus.NO_CONTENT)
-//		} catch (e: Exception) {
-//			ResponseEntity<HttpStatus?>(HttpStatus.INTERNAL_SERVER_ERROR)
-//		}
-//	}
 }

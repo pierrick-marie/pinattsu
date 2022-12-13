@@ -4,7 +4,6 @@ import com.example.blog.extension.format
 import jakarta.persistence.*
 import org.hibernate.annotations.OnDelete
 import org.hibernate.annotations.OnDeleteAction
-import org.springframework.data.repository.CrudRepository
 import java.time.LocalDateTime
 
 @Entity
@@ -15,18 +14,18 @@ class Article(
 	var formatedDate: String = date.format(),
 	@ManyToOne
 	@OnDelete(action = OnDeleteAction.CASCADE)
-	val author: Author,
+	var author: Author? = null,
 	@Id @GeneratedValue
 	var id: Long? = null,
 )
 
 fun Article.render() = RenderedArticle(
-	title, content, formatedDate, author.render()
+	title, content, formatedDate, author?.render()
 )
 
 data class RenderedArticle(
 	val title: String,
 	val content: String,
 	val date: String,
-	val author: RenderedAuthor,
+	val author: RenderedAuthor? = null,
 )
