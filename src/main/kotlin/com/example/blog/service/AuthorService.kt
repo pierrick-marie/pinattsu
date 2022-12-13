@@ -26,6 +26,12 @@ class AuthorService (val authorRepository: AuthorRepository) {
 			?: throw ResponseStatusException(HttpStatus.NOT_FOUND)
 	}
 
+	fun getByLogin(login: String): RenderedAuthor {
+		return authorRepository.findByLogin(login)
+			?.render()
+			?: throw ResponseStatusException(HttpStatus.NOT_FOUND)
+	}
+
 	fun create(author: Author): RenderedAuthor {
 		return try {
 			authorRepository.save(author).render()
