@@ -46,6 +46,12 @@ class AuthorService (val authorRepository: AuthorRepository) {
 		else throw ResponseStatusException(HttpStatus.NOT_FOUND)
 	}
 
+	fun removeByLogin(login: String) {
+		val author = authorRepository.findByLogin(login)
+			?: throw ResponseStatusException(HttpStatus.NOT_FOUND)
+		authorRepository.delete(author)
+	}
+
 	fun update(id: Long, author: Author): RenderedAuthor {
 		return if (authorRepository.existsById(id)) {
 			author.id = id

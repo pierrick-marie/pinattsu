@@ -28,6 +28,6 @@ class RestAuthorController(private val authorService: AuthorService) {
 	@GetMapping("/{login}")
 	fun get(@PathVariable("login") login: String) = authorService.getByLogin(login)
 
-	@DeleteMapping("/{id}")
-	fun delete(@PathVariable("id") id: Long) = authorService.remove(id)
+	@DeleteMapping("/{login}")
+	fun delete(@PathVariable("login") login: String) = authorService.removeByLogin(login)
 }
