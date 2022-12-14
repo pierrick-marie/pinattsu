@@ -2,30 +2,38 @@ package com.example.blog.entity
 
 import com.example.blog.extension.format
 import jakarta.persistence.*
-import org.hibernate.annotations.OnDelete
-import org.hibernate.annotations.OnDeleteAction
 import java.time.LocalDateTime
 
 @Entity
 class Article(
 	var title: String,
 	var content: String,
-	var date: LocalDateTime = LocalDateTime.now(),
-	var formatedDate: String = date.format(),
-	@ManyToOne
-	@OnDelete(action = OnDeleteAction.CASCADE)
+	var date: String = LocalDateTime.now().format(),
+	@ManyToOne(fetch = FetchType.LAZY)
 	var author: Author? = null,
 	@Id @GeneratedValue
 	var id: Long? = null,
 )
 
-fun Article.render() = RenderedArticle(
-	title, content, formatedDate, author?.render()
+fun Article.apiRender() = ApiRenderedArticle(
+	id, title, content, date, author?.login
 )
 
-data class RenderedArticle(
+fun Article.webRender() = WebRenderedArticle(
+	title, content, date, author
+)
+
+data class ApiRenderedArticle(
+	val id: Long?,
 	val title: String,
 	val content: String,
-	val date: String,
-	val author: RenderedAuthor? = null,
+	val date: String?,
+	val author: String?,
+)
+
+data class WebRenderedArticle(
+	val title: String,
+	val content: String,
+	val date: String?,
+	val author: Author?,
 )

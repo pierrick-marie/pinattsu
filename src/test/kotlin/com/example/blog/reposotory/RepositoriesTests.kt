@@ -25,7 +25,8 @@ class RepositoriesTests @Autowired constructor(
         val article = Article(
             title = "Spring Framework 5.0 goes GA",
             content = "Dear Spring community ...",
-            author = juergen)
+//            author = juergen
+        )
         entityManager.persist(article)
         entityManager.flush()
         val found = articleRepository.findByIdOrNull(article.id!!)

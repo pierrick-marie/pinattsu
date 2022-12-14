@@ -1,10 +1,8 @@
 package com.example.blog.entity
 
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.Id
-import jakarta.persistence.UniqueConstraint
+import jakarta.persistence.*
+import org.hibernate.annotations.OnDelete
+import org.hibernate.annotations.OnDeleteAction
 import org.springframework.data.repository.CrudRepository
 
 @Entity
@@ -17,7 +15,7 @@ class Author (
 	@Id @GeneratedValue var id: Long? = null,
 )
 
-fun Author.render() = RenderedAuthor (
+fun Author.apiRender() = RenderedAuthor (
 	login, firstName, lastName.uppercase(), description ?: "Default description"
 )
 

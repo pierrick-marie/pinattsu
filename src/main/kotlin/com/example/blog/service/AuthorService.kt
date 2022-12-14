@@ -2,7 +2,7 @@ package com.example.blog.service
 
 import com.example.blog.entity.Author
 import com.example.blog.entity.RenderedAuthor
-import com.example.blog.entity.render
+import com.example.blog.entity.apiRender
 import com.example.blog.repository.AuthorRepository
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
@@ -17,24 +17,24 @@ class AuthorService (val authorRepository: AuthorRepository) {
 	private val logger: Logger = LogManager.getLogger(AuthorService::class.java)
 
 	fun getAll(): List<RenderedAuthor> {
-		return authorRepository.findAll().map{ it.render() }
+		return authorRepository.findAll().map{ it.apiRender() }
 	}
 
 	fun getById(id: Long): RenderedAuthor {
 		return authorRepository.findByIdOrNull(id)
-			?.render()
+			?.apiRender()
 			?: throw ResponseStatusException(HttpStatus.NOT_FOUND)
 	}
 
 	fun getByLogin(login: String): RenderedAuthor {
 		return authorRepository.findByLogin(login)
-			?.render()
+			?.apiRender()
 			?: throw ResponseStatusException(HttpStatus.NOT_FOUND)
 	}
 
 	fun create(author: Author): RenderedAuthor {
 		return try {
-			authorRepository.save(author).render()
+			authorRepository.save(author).apiRender()
 		} catch (e: Exception) {
 			logger.error(e.message)
 			throw ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -55,7 +55,7 @@ class AuthorService (val authorRepository: AuthorRepository) {
 	fun update(id: Long, author: Author): RenderedAuthor {
 		return if (authorRepository.existsById(id)) {
 			author.id = id
-			authorRepository.save(author).render()
+			authorRepository.save(author).apiRender()
 		} else throw ResponseStatusException(HttpStatus.NOT_FOUND)
 	}
 
@@ -65,6 +65,6 @@ class AuthorService (val authorRepository: AuthorRepository) {
 
 		author.id = _author.id
 
-		return authorRepository.save(author).render()
+		return authorRepository.save(author).apiRender()
 	}
 }

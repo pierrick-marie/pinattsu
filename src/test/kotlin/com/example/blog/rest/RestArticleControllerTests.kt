@@ -36,11 +36,13 @@ class RestArticleControllerTests(@Autowired val mockMvc: MockMvc) {
 		val spring5Article = Article(
 			title = "Spring Framework 5.0 goes GA",
 			content = "Dear Spring community ...",
-			author = juergen)
+//			author = juergen
+		)
 		val spring43Article = Article(
 			title = "Spring Framework 4.3 goes GA",
 			content = "Dear Spring community ...",
-			author = juergen)
+//			author = juergen
+		)
 
 		every { articleRepository.findAllByOrderByDateDesc() } returns listOf(spring5Article, spring43Article)
 

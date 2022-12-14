@@ -2,7 +2,7 @@ package com.example.blog.controller
 
 import com.example.blog.property.DefaultProperties
 import com.example.blog.repository.AuthorRepository
-import com.example.blog.entity.render
+import com.example.blog.entity.apiRender
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import org.springframework.http.HttpStatus
@@ -29,7 +29,7 @@ class AuthorController(
 
 		model["title"] = "Authors"
 		model["banner"] = properties.banner
-		model["authors"] = authors.map { it.render() }
+		model["authors"] = authors.map { it.apiRender() }
 
 		return "entities/authors"
 	}
@@ -37,7 +37,7 @@ class AuthorController(
 	@GetMapping("/author/{login}")
 	fun author(@PathVariable login: String, model: Model): String {
 		val author = authorRepository.findByLogin(login)
-			?.render()
+			?.apiRender()
 			?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "This author does not exist")
 
 		model["title"] = author.firstName

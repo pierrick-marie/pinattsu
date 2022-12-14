@@ -1,9 +1,10 @@
 package com.example.blog.service
 
 import com.example.blog.entity.Article
-import com.example.blog.entity.RenderedArticle
-import com.example.blog.entity.render
+import com.example.blog.entity.ApiRenderedArticle
+import com.example.blog.entity.apiRender
 import com.example.blog.repository.ArticleRepository
+import com.example.blog.repository.AuthorRepository
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import org.springframework.data.repository.findByIdOrNull
@@ -12,23 +13,30 @@ import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
 
 @Service
-class ArticleService(val articleRepository: ArticleRepository) {
+class ArticleService(val articleRepository: ArticleRepository, val authorRepository: AuthorRepository) {
 
 	private val logger: Logger = LogManager.getLogger(ArticleService::class.java)
 
-	fun getAll(): List<RenderedArticle> {
-		return articleRepository.findAll().map { it.render() }
+	fun getAll(): List<ApiRenderedArticle> {
+		return articleRepository.findAll().map { it.apiRender() }
 	}
 
-	fun getById(id: Long): RenderedArticle {
+	fun getById(id: Long): ApiRenderedArticle {
 		return articleRepository.findByIdOrNull(id)
-			?.render()
+			?.apiRender()
 			?: throw ResponseStatusException(HttpStatus.NOT_FOUND)
 	}
 
-	fun create(article: Article): RenderedArticle {
+	fun create(articleData: ApiRenderedArticle): ApiRenderedArticle {
 		return try {
-			articleRepository.save(article).render()
+			val article = Article(
+				title = articleData.title,
+				content = articleData.content,
+			)
+
+			articleData.author?.let { authorRepository.findByLogin(it).also { article.author = it } }
+
+			articleRepository.save(article).apiRender()
 		} catch (e: Exception) {
 			logger.error(e.message)
 			throw ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -40,14 +48,14 @@ class ArticleService(val articleRepository: ArticleRepository) {
 		else throw ResponseStatusException(HttpStatus.NOT_FOUND)
 	}
 
-	fun update(id: Long, article: Article): RenderedArticle {
+	fun update(id: Long, article: Article): ApiRenderedArticle {
 
 		val _article = articleRepository.findByIdOrNull(id)
 			?: throw ResponseStatusException(HttpStatus.NOT_FOUND)
 
-		if (article.author == null) article.author = _article.author
+		article.author = _article.author
 		article.id = id
 
-		return articleRepository.save(article).render()
+		return articleRepository.save(article).apiRender()
 	}
 }
