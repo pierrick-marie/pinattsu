@@ -3,8 +3,6 @@ package com.example.blog.reposotory
 import com.example.blog.entity.Author
 import com.example.blog.repository.AuthorRepository
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.Assertions.assertNotNull
-import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
@@ -19,10 +17,13 @@ class AuthorRepositoryTests @Autowired constructor(
 	@Test
 	fun `When findByLogin then return User`() {
 		val juergen = Author("springjuergen", "Juergen", "Hoeller")
+
+		val juergenBis = Author("springjuergencdqsdsq", "Juergendqsd", "Hoellerdqsdqs")
+
 		entityManager.persist(juergen)
 		entityManager.flush()
-		val testesAuthor = authorRepository.findByLogin(juergen.login)
-		
-		assertTrue(testesAuthor?.equals(juergen) ?: false)
+		val testedAuthor = authorRepository.findByLogin(juergen.login)
+
+		assertThat(testedAuthor).isEqualTo(juergen)
 	}
 }

@@ -28,8 +28,9 @@ class ArticleRepositoryTests @Autowired constructor(
 		entityManager.persist(primeArticle)
 		entityManager.flush()
 		val testedArticles = articleRepository.findByAuthor(juergen)
-		assertEquals(testedArticles.size, 1)
-		assertTrue(testedArticles.contains(primeArticle))
+
+		assertThat(testedArticles).hasSize(1)
+		assertThat(testedArticles).contains(primeArticle)
 	}
 
 	@Test
@@ -41,8 +42,9 @@ class ArticleRepositoryTests @Autowired constructor(
 		entityManager.persist(primeArticle)
 		entityManager.flush()
 		val testedArticles = articleRepository.findByDate(today)
-		assertEquals(testedArticles.size, 1)
-		assertTrue(testedArticles.contains(primeArticle))
+
+		assertThat(testedArticles).hasSize(1)
+		assertThat(testedArticles).contains(primeArticle)
 	}
 
 	@Test
@@ -59,15 +61,16 @@ class ArticleRepositoryTests @Autowired constructor(
 		entityManager.persist(secondArticle)
 		entityManager.flush()
 		val testedArticles = articleRepository.findAllByOrderByDateDesc()
-		assertTrue(testedArticles.contains(primeArticle))
-		assertTrue(testedArticles.contains(secondArticle))
 
-		assertEquals(testedArticles.size, 2)
+		assertThat(testedArticles).hasSize(2)
 
-		val testedPrimeArticle = testedArticles.get(1);
-		val testedSecondArticle = testedArticles.get(0);
+		assertThat(testedArticles).contains(primeArticle)
+		assertThat(testedArticles).contains(secondArticle)
 
-		assertTrue(testedPrimeArticle.equals(primeArticle))
-		assertTrue(testedSecondArticle.equals(secondArticle))
+		val testedPrimeArticle = testedArticles.last();
+		val testedSecondArticle = testedArticles.first();
+
+		assertThat(testedPrimeArticle).isEqualTo(primeArticle)
+		assertThat(testedSecondArticle).isEqualTo(secondArticle)
 	}
 }

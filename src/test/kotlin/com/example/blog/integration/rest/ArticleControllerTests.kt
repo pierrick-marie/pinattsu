@@ -1,15 +1,17 @@
-package com.example.blog.rest
+package com.example.blog.`rest-api`
 
 import com.example.blog.entity.Article
 import com.example.blog.entity.Author
 import com.example.blog.repository.ArticleRepository
 import com.example.blog.repository.AuthorRepository
+import com.example.blog.service.AuthorService
 import com.ninjasquad.springmockk.MockkBean
 import io.mockk.every
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
@@ -19,11 +21,17 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 @WebMvcTest
 class ArticleControllerTests(@Autowired val mockMvc: MockMvc) {
 
-	@MockkBean
-	private lateinit var authorRepository: AuthorRepository
+//	@MockkBean
+//	private lateinit var authorRepository: AuthorRepository
+//
+//	@MockkBean
+//	private lateinit var articleRepository: ArticleRepository
 
-	@MockkBean
-	private lateinit var articleRepository: ArticleRepository
+//	@MockkBean
+//	private lateinit var authorService: AuthorService
+//
+//	@MockkBean
+//	private lateinit var articleService: AuthorService
 
 	private val logger: Logger = LogManager.getLogger(ArticleControllerTests::class.java)
 
@@ -44,7 +52,7 @@ class ArticleControllerTests(@Autowired val mockMvc: MockMvc) {
 //			author = juergen
 		)
 
-		every { articleRepository.findAllByOrderByDateDesc() } returns listOf(spring5Article, spring43Article)
+//		every { articleRepository.findAllByOrderByDateDesc() } returns listOf(spring5Article, spring43Article)
 
 		mockMvc.perform(get("/api/article/").accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk)
