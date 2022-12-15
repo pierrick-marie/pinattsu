@@ -11,10 +11,6 @@ private val daysLookup = (1..31).associate { it.toLong() to getOrdinal(it) }
 
 private val englishDateFormatter = DateTimeFormatterBuilder()
 	.appendPattern("yyyy-MM-dd")
-//	.appendLiteral("_")
-//	.appendText(ChronoField.DAY_OF_MONTH, daysLookup)
-//	.appendLiteral("_")
-//	.appendPattern("yyyy")
 	.toFormatter(Locale.ENGLISH)
 
 private fun getOrdinal(n: Int) = when {

@@ -17,7 +17,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 
 @WebMvcTest
-class RestArticleControllerTests(@Autowired val mockMvc: MockMvc) {
+class ArticleControllerTests(@Autowired val mockMvc: MockMvc) {
 
 	@MockkBean
 	private lateinit var authorRepository: AuthorRepository
@@ -25,7 +25,7 @@ class RestArticleControllerTests(@Autowired val mockMvc: MockMvc) {
 	@MockkBean
 	private lateinit var articleRepository: ArticleRepository
 
-	private val logger: Logger = LogManager.getLogger(RestArticleControllerTests::class.java)
+	private val logger: Logger = LogManager.getLogger(ArticleControllerTests::class.java)
 
 	@Test
 	fun `List article`() {
