@@ -17,12 +17,12 @@ class RestArticleController(private val articleService: ArticleService) {
 	@ResponseStatus(HttpStatus.CREATED)
 	fun createArticle(@RequestBody article: ApiRenderedArticle) = articleService.create(article)
 
-//	@PutMapping("/{id}")
-//	fun updateArticle(@PathVariable("id") id: Long, @RequestBody article: RenderedArticle) = articleService.update(id, article)
+	@PutMapping("/{id}")
+	fun updateArticle(@PathVariable("id") id: Long, @RequestBody article: ApiRenderedArticle) = articleService.updateById(id, article)
 
 	@GetMapping("/{id}")
 	fun get(@PathVariable("id") id: Long) = articleService.getById(id)
 
 	@DeleteMapping("/{id}")
-	fun delete(@PathVariable("id") id: Long) = articleService.remove(id)
+	fun delete(@PathVariable("id") id: Long) = articleService.removeById(id)
 }

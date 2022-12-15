@@ -105,13 +105,13 @@ class ArticleServiceTests @Autowired constructor(
 
 		assertThat(articleService.getAll()).hasSize(2)
 
-		primeArticle.id?.let {articleService.remove(it)}
+		primeArticle.id?.let {articleService.removeById(it)}
 
 		assertThat(articleService.getAll()).hasSize(1)
 		assertThat(articleService.getAll()).contains(secondArticle.apiRender())
 
 		try {
-			articleService.remove(-1)
+			articleService.removeById(-1)
 			fail("Exception not triggered")
 		} catch (e: ResponseStatusException) {
 			assertThat(e.statusCode).isEqualTo(HttpStatus.NOT_FOUND)
@@ -128,13 +128,13 @@ class ArticleServiceTests @Autowired constructor(
 		updatedArticle.title = "Updated title"
 		updatedArticle.content = "Exclusive content"
 
-		val result = primeArticle.id?.let { articleService.update(it, updatedArticle) }
+		val result = primeArticle.id?.let { articleService.updateById(it, updatedArticle.apiRender()) }
 
 		assertThat(articleService.getAll()).hasSize(2)
 		assertThat(result?.title).isEqualTo(updatedArticle.title)
 
 		try {
-			articleService.update(-1, updatedArticle)
+			articleService.updateById(-1, updatedArticle.apiRender())
 			fail("Exception not triggered")
 		} catch (e: ResponseStatusException) {
 			assertThat(e.statusCode).isEqualTo(HttpStatus.NOT_FOUND)

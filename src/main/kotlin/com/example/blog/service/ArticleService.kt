@@ -43,18 +43,25 @@ class ArticleService(val articleRepository: ArticleRepository, val authorReposit
 		}
 	}
 
-	fun remove(id: Long) {
+	fun removeById(id: Long) {
 		if (articleRepository.existsById(id)) articleRepository.deleteById(id)
 		else throw ResponseStatusException(HttpStatus.NOT_FOUND)
 	}
 
-	fun update(id: Long, article: Article): ApiRenderedArticle {
+	fun updateById(id: Long, articleData: ApiRenderedArticle): ApiRenderedArticle {
 
-		val _article = articleRepository.findByIdOrNull(id)
+		var article = articleRepository.findByIdOrNull(id)
 			?: throw ResponseStatusException(HttpStatus.NOT_FOUND)
 
-		article.author = _article.author
-		article.id = id
+		article.title = articleData.title
+		article.content = articleData.content
+		articleData.date?.let { article.date = it }
+
+		articleData.author?.let {
+			authorRepository.findByLogin(it)?.let {
+				article.author = it
+			}
+		}
 
 		return articleRepository.save(article).apiRender()
 	}
