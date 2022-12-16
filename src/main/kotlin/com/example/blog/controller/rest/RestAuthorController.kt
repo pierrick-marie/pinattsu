@@ -1,19 +1,17 @@
-package com.example.blog.controller
+package com.example.blog.controller.rest
 
 import com.example.blog.entity.Author
 import com.example.blog.service.AuthorService
-import org.springframework.data.repository.findByIdOrNull
-import org.springframework.http.HttpLogging
 import org.springframework.http.HttpStatus
-import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
-import org.springframework.web.server.ResponseStatusException
 import java.util.*
 
 
 @RestController
 @RequestMapping("api/author")
-class RestAuthorController(private val authorService: AuthorService) {
+class RestAuthorController(
+	private val authorService: AuthorService
+) {
 
 	@GetMapping
 	fun findAll() = authorService.getAll()

@@ -1,10 +1,8 @@
 package com.example.blog.service
 
 import com.example.blog.entity.Article
-import com.example.blog.entity.ApiRenderedArticle
-import com.example.blog.entity.apiRender
+import com.example.blog.entity.Author
 import com.example.blog.repository.ArticleRepository
-import com.example.blog.repository.AuthorRepository
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import org.springframework.data.repository.findByIdOrNull
@@ -13,30 +11,37 @@ import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
 
 @Service
-class ArticleService(val articleRepository: ArticleRepository, val authorRepository: AuthorRepository) {
+class ArticleService(val articleRepository: ArticleRepository, val authorService: AuthorService) {
 
 	private val logger: Logger = LogManager.getLogger(ArticleService::class.java)
 
-	fun getAll(): List<ApiRenderedArticle> {
-		return articleRepository.findAll().map { it.apiRender() }
+	fun getAll(): Iterable<Article> {
+		return articleRepository.findAll()
 	}
 
-	fun getById(id: Long): ApiRenderedArticle {
+	fun getById(id: Long): Article {
 		return articleRepository.findByIdOrNull(id)
-			?.apiRender()
 			?: throw ResponseStatusException(HttpStatus.NOT_FOUND)
 	}
 
-	fun create(articleData: ApiRenderedArticle): ApiRenderedArticle {
+	fun getByDate(date: String): List<Article> {
+		return articleRepository.findByDate(date)
+	}
+
+	fun getByAuthor(author: Author): List<Article> {
+		return articleRepository.findByAuthor(author)
+	}
+
+	fun create(articleData: Article): Article {
 		return try {
 			val article = Article(
 				title = articleData.title,
 				content = articleData.content,
 			)
 
-			articleData.author?.let { authorRepository.findByLogin(it).also { article.author = it } }
+			articleData.author?.let { authorService.getByLogin(it.login).also { article.author = it } }
 
-			articleRepository.save(article).apiRender()
+			articleRepository.save(article)
 		} catch (e: Exception) {
 			logger.error(e.message)
 			throw ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -48,7 +53,7 @@ class ArticleService(val articleRepository: ArticleRepository, val authorReposit
 		else throw ResponseStatusException(HttpStatus.NOT_FOUND)
 	}
 
-	fun updateById(id: Long, articleData: ApiRenderedArticle): ApiRenderedArticle {
+	fun updateById(id: Long, articleData: Article): Article {
 
 		var article = articleRepository.findByIdOrNull(id)
 			?: throw ResponseStatusException(HttpStatus.NOT_FOUND)
@@ -58,11 +63,11 @@ class ArticleService(val articleRepository: ArticleRepository, val authorReposit
 		articleData.date?.let { article.date = it }
 
 		articleData.author?.let {
-			authorRepository.findByLogin(it)?.let {
+			authorService.getByLogin(it.login)?.let {
 				article.author = it
 			}
 		}
 
-		return articleRepository.save(article).apiRender()
+		return articleRepository.save(article)
 	}
 }

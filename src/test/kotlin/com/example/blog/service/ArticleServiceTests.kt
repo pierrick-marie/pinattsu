@@ -2,7 +2,6 @@ package com.example.blog.service
 
 import com.example.blog.entity.Article
 import com.example.blog.entity.Author
-import com.example.blog.entity.apiRender
 import com.example.blog.repository.ArticleRepository
 import com.example.blog.repository.AuthorRepository
 import org.apache.logging.log4j.LogManager
@@ -29,7 +28,8 @@ class ArticleServiceTests @Autowired constructor(
 
 	private val logger: Logger = LogManager.getLogger(ArticleServiceTests::class.java)
 
-	private val articleService = ArticleService(articleRepository, authorRepository)
+	private val authorService = AuthorService(authorRepository)
+	private val articleService = ArticleService(articleRepository, authorService)
 
 	private val juergen = Author("springjuergen", "Juergen", "Hoeller")
 	private val peter = Author("peter", "Peter", "M.")
@@ -62,8 +62,8 @@ class ArticleServiceTests @Autowired constructor(
 		val testedArticles = articleService.getAll()
 
 		assertThat(testedArticles).hasSize(2)
-		assertThat(testedArticles).contains(primeArticle.apiRender())
-		assertThat(testedArticles).contains(secondArticle.apiRender())
+		assertThat(testedArticles).contains(primeArticle)
+		assertThat(testedArticles).contains(secondArticle)
 	}
 
 	@Test
@@ -71,7 +71,7 @@ class ArticleServiceTests @Autowired constructor(
 
 		val testedArticle = primeArticle.id?.let { articleService.getById(it) }
 
-		assertThat(testedArticle).isEqualTo(primeArticle.apiRender())
+		assertThat(testedArticle).isEqualTo(primeArticle)
 
 		try {
 			articleService.getById(-1)
@@ -92,7 +92,7 @@ class ArticleServiceTests @Autowired constructor(
 			date = "2022-12-03",
 			author = peter)
 
-		val newArticle = articleService.create(testedArticle.apiRender())
+		val newArticle = articleService.create(testedArticle)
 		assertThat(newArticle.title).isEqualTo(testedArticle.title)
 
 		val allArticles = articleService.getAll()
@@ -108,7 +108,7 @@ class ArticleServiceTests @Autowired constructor(
 		primeArticle.id?.let {articleService.removeById(it)}
 
 		assertThat(articleService.getAll()).hasSize(1)
-		assertThat(articleService.getAll()).contains(secondArticle.apiRender())
+		assertThat(articleService.getAll()).contains(secondArticle)
 
 		try {
 			articleService.removeById(-1)
@@ -128,13 +128,13 @@ class ArticleServiceTests @Autowired constructor(
 		updatedArticle.title = "Updated title"
 		updatedArticle.content = "Exclusive content"
 
-		val result = primeArticle.id?.let { articleService.updateById(it, updatedArticle.apiRender()) }
+		val result = primeArticle.id?.let { articleService.updateById(it, updatedArticle) }
 
 		assertThat(articleService.getAll()).hasSize(2)
 		assertThat(result?.title).isEqualTo(updatedArticle.title)
 
 		try {
-			articleService.updateById(-1, updatedArticle.apiRender())
+			articleService.updateById(-1, updatedArticle)
 			fail("Exception not triggered")
 		} catch (e: ResponseStatusException) {
 			assertThat(e.statusCode).isEqualTo(HttpStatus.NOT_FOUND)

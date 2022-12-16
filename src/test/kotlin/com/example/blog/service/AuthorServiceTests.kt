@@ -1,7 +1,6 @@
 package com.example.blog.service
 
 import com.example.blog.entity.Author
-import com.example.blog.entity.apiRender
 import com.example.blog.repository.AuthorRepository
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
@@ -45,8 +44,8 @@ class AuthorServiceTests @Autowired constructor(
 		val testedAuthors = authorService.getAll()
 
 		assertThat(testedAuthors).hasSize(2)
-		assertThat(testedAuthors).contains(juergen.apiRender())
-		assertThat(testedAuthors).contains(peter.apiRender())
+		assertThat(testedAuthors).contains(juergen)
+		assertThat(testedAuthors).contains(peter)
 	}
 
 	@Test
@@ -54,7 +53,7 @@ class AuthorServiceTests @Autowired constructor(
 
 		val testedAuthor = juergen.id?.let { authorService.getById(it) }
 
-		assertThat(testedAuthor).isEqualTo(juergen.apiRender())
+		assertThat(testedAuthor).isEqualTo(juergen)
 
 		try {
 			authorService.getById(-1)
@@ -92,7 +91,7 @@ class AuthorServiceTests @Autowired constructor(
 		val result = authorService.create(newAuthor)
 
 		assertThat(authorService.getAll()).hasSize(3)
-		assertThat(authorService.getByLogin(newAuthor.login)).isEqualTo(newAuthor.apiRender())
+		assertThat(authorService.getByLogin(newAuthor.login)).isEqualTo(newAuthor)
 		assertThat(result.login).isEqualTo(newAuthor.login)
 	}
 
@@ -113,7 +112,7 @@ class AuthorServiceTests @Autowired constructor(
 		}
 
 		assertThat(authorService.getAll()).hasSize(1)
-		assertThat(authorService.getAll()).contains(peter.apiRender())
+		assertThat(authorService.getAll()).contains(peter)
 	}
 
 	@Test
@@ -133,7 +132,7 @@ class AuthorServiceTests @Autowired constructor(
 		}
 
 		assertThat(authorService.getAll()).hasSize(1)
-		assertThat(authorService.getAll()).contains(peter.apiRender())
+		assertThat(authorService.getAll()).contains(peter)
 	}
 
 	@Test
@@ -148,7 +147,7 @@ class AuthorServiceTests @Autowired constructor(
 		val result = updatedJuergen.id?.let { authorService.update(it, updatedJuergen) }
 
 		assertThat(authorService.getAll()).hasSize(2)
-		assertThat(authorService.getByLogin(updatedJuergen.login)).isEqualTo(updatedJuergen.apiRender())
+		assertThat(authorService.getByLogin(updatedJuergen.login)).isEqualTo(updatedJuergen)
 		assertThat(result?.login).isEqualTo(updatedJuergen.login)
 
 		try {
@@ -164,7 +163,7 @@ class AuthorServiceTests @Autowired constructor(
 	@Test
 	fun `Test update Juergen by its login`() {
 
-		var updatedJuergen = juergen
+		val updatedJuergen = juergen
 
 		updatedJuergen.login = "updated login"
 		updatedJuergen.firstName = "updated firstname"
@@ -173,8 +172,8 @@ class AuthorServiceTests @Autowired constructor(
 		val result = authorService.updateByLogin(juergen.login, updatedJuergen)
 
 		assertThat(authorService.getAll()).hasSize(2)
-		assertThat(authorService.getByLogin(updatedJuergen.login)).isEqualTo(updatedJuergen.apiRender())
-		assertThat(result?.login).isEqualTo(updatedJuergen.login)
+		assertThat(authorService.getByLogin(updatedJuergen.login)).isEqualTo(updatedJuergen)
+		assertThat(result.login).isEqualTo(updatedJuergen.login)
 
 		try {
 			authorService.update(-1, updatedJuergen)

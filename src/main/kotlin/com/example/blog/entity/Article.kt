@@ -15,25 +15,3 @@ class Article(
 	var id: Long? = null,
 )
 
-fun Article.apiRender() = ApiRenderedArticle(
-	id, title, content, date, author?.login
-)
-
-fun Article.webRender() = WebRenderedArticle(
-	title, content, date, author
-)
-
-data class ApiRenderedArticle(
-	val id: Long?,
-	val title: String,
-	val content: String,
-	val date: String?,
-	val author: String?,
-)
-
-data class WebRenderedArticle(
-	val title: String,
-	val content: String,
-	val date: String?,
-	val author: Author?,
-)

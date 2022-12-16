@@ -1,8 +1,6 @@
 package com.example.blog.service
 
 import com.example.blog.entity.Author
-import com.example.blog.entity.RenderedAuthor
-import com.example.blog.entity.apiRender
 import com.example.blog.repository.AuthorRepository
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
@@ -16,25 +14,23 @@ class AuthorService (val authorRepository: AuthorRepository) {
 
 	private val logger: Logger = LogManager.getLogger(AuthorService::class.java)
 
-	fun getAll(): List<RenderedAuthor> {
-		return authorRepository.findAll().map{ it.apiRender() }
+	fun getAll(): List<Author> {
+		return authorRepository.findAll().map{ it }
 	}
 
-	fun getById(id: Long): RenderedAuthor {
+	fun getById(id: Long): Author {
 		return authorRepository.findByIdOrNull(id)
-			?.apiRender()
 			?: throw ResponseStatusException(HttpStatus.NOT_FOUND)
 	}
 
-	fun getByLogin(login: String): RenderedAuthor {
+	fun getByLogin(login: String): Author {
 		return authorRepository.findByLogin(login)
-			?.apiRender()
 			?: throw ResponseStatusException(HttpStatus.NOT_FOUND)
 	}
 
-	fun create(author: Author): RenderedAuthor {
+	fun create(author: Author): Author {
 		return try {
-			authorRepository.save(author).apiRender()
+			authorRepository.save(author)
 		} catch (e: Exception) {
 			logger.error(e.message)
 			throw ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -52,19 +48,19 @@ class AuthorService (val authorRepository: AuthorRepository) {
 		authorRepository.delete(author)
 	}
 
-	fun update(id: Long, author: Author): RenderedAuthor {
+	fun update(id: Long, author: Author): Author {
 		return if (authorRepository.existsById(id)) {
 			author.id = id
-			authorRepository.save(author).apiRender()
+			authorRepository.save(author)
 		} else throw ResponseStatusException(HttpStatus.NOT_FOUND)
 	}
 
-	fun updateByLogin(login: String, author: Author): RenderedAuthor {
+	fun updateByLogin(login: String, author: Author): Author {
 		val _author = authorRepository.findByLogin(login)
 			?: throw ResponseStatusException(HttpStatus.NOT_FOUND)
 
 		author.id = _author.id
 
-		return authorRepository.save(author).apiRender()
+		return authorRepository.save(author)
 	}
 }
