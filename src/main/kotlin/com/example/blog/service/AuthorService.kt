@@ -38,7 +38,9 @@ class AuthorService (val authorRepository: AuthorRepository) {
 	}
 
 	fun remove(id: Long) {
-		if (authorRepository.existsById(id)) authorRepository.deleteById(id)
+		if (authorRepository.existsById(id)) {
+			authorRepository.deleteById(id)
+		}
 		else throw ResponseStatusException(HttpStatus.NOT_FOUND)
 	}
 

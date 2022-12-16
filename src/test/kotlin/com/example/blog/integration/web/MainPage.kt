@@ -1,5 +1,7 @@
 package com.example.blog.integration.web
 
+import org.apache.logging.log4j.LogManager
+import org.apache.logging.log4j.Logger
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.BeforeAll
@@ -13,11 +15,13 @@ import org.springframework.http.HttpStatus
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class IntegrationTests(@Autowired val restTemplate: TestRestTemplate) {
+class MainPage(@Autowired val restTemplate: TestRestTemplate) {
+
+    private val logger: Logger = LogManager.getLogger(MainPage::class.java)
 
     @BeforeAll
     fun setup() {
-        println(">> Setup")
+        logger.info(">> Setup")
     }
 
     @Test
@@ -38,7 +42,7 @@ class IntegrationTests(@Autowired val restTemplate: TestRestTemplate) {
 
     @AfterAll
     fun teardown() {
-        println(">> Tear down")
+        logger.info(">> Tear down")
     }
 
 }

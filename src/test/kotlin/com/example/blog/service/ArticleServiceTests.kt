@@ -4,6 +4,7 @@ import com.example.blog.entity.Article
 import com.example.blog.entity.Author
 import com.example.blog.repository.ArticleRepository
 import com.example.blog.repository.AuthorRepository
+import com.ninjasquad.springmockk.clear
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import org.assertj.core.api.Assertions.assertThat
@@ -43,17 +44,22 @@ class ArticleServiceTests @Autowired constructor(
 	private val secondArticle = Article(
 		title = "Test title 1",
 		content ="Test content 1",
-		date = "2022-12-02")
+		date = "2022-12-02",
+		author = peter)
 
 	@BeforeEach
 	fun init() {
 
-		entityManager.clear()
-		entityManager.persist(juergen)
-		entityManager.persist(peter)
-		entityManager.persist(primeArticle)
-		entityManager.persist(secondArticle)
+		authorRepository.deleteAll()
+		articleRepository.deleteAll()
+
+		authorRepository.save(juergen)
+		authorRepository.save(peter)
+		articleRepository.save(primeArticle)
+		articleRepository.save(secondArticle)
+
 		entityManager.flush()
+		entityManager.clear()
 	}
 
 	@Test
@@ -121,6 +127,20 @@ class ArticleServiceTests @Autowired constructor(
 	}
 
 	@Test
+	fun `Test remove author and its articles by cascade`() {
+		assertThat(articleService.getAll()).hasSize(2)
+		assertThat(authorService.getAll()).hasSize(2)
+
+		juergen.id?.let { authorService.remove(it) }
+
+		entityManager.flush()
+		entityManager.clear()
+
+		assertThat(articleService.getAll()).hasSize(1)
+		assertThat(authorService.getAll()).hasSize(1)
+	}
+
+	@Test
 	fun `Test update prime article by its id`() {
 
 		var updatedArticle = primeArticle
@@ -131,7 +151,7 @@ class ArticleServiceTests @Autowired constructor(
 		val result = primeArticle.id?.let { articleService.updateById(it, updatedArticle) }
 
 		assertThat(articleService.getAll()).hasSize(2)
-		assertThat(result?.title).isEqualTo(updatedArticle.title)
+		assertThat(result).isEqualTo(updatedArticle)
 
 		try {
 			articleService.updateById(-1, updatedArticle)

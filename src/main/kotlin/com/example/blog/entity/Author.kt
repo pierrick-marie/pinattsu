@@ -10,7 +10,13 @@ class Author (
 	var lastName: String,
 	var description: String? = null,
 	@Id @GeneratedValue var id: Long? = null,
-)
+) {
 
+	override fun equals(other: Any?): Boolean =
+		(other is Author)
+			  && id == other.id
+			  && login == other.login
+			  && firstName == other.firstName
+			  && lastName == other.lastName
 
-
+}

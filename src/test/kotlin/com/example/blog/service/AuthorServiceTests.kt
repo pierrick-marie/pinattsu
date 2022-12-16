@@ -32,10 +32,13 @@ class AuthorServiceTests @Autowired constructor(
 	@BeforeEach
 	fun init() {
 
-		entityManager.clear()
-		entityManager.persist(juergen)
-		entityManager.persist(peter)
+		authorRepository.deleteAll()
+
+		authorRepository.save(juergen)
+		authorRepository.save(peter)
+
 		entityManager.flush()
+		entityManager.clear()
 	}
 
 	@Test
@@ -70,7 +73,7 @@ class AuthorServiceTests @Autowired constructor(
 
 		val testedAuthor = authorService.getByLogin(juergen.login)
 
-		assertThat(testedAuthor.login).isEqualTo(juergen.login)
+		assertThat(testedAuthor).isEqualTo(juergen)
 
 		try {
 			authorService.getByLogin("failed login")
@@ -92,7 +95,7 @@ class AuthorServiceTests @Autowired constructor(
 
 		assertThat(authorService.getAll()).hasSize(3)
 		assertThat(authorService.getByLogin(newAuthor.login)).isEqualTo(newAuthor)
-		assertThat(result.login).isEqualTo(newAuthor.login)
+		assertThat(result).isEqualTo(newAuthor)
 	}
 
 	@Test
@@ -100,7 +103,7 @@ class AuthorServiceTests @Autowired constructor(
 
 		assertThat(authorService.getAll()).hasSize(2)
 
-		juergen.id?.let {authorService.remove(it)}
+		juergen.id?.let { authorService.remove(it) }
 
 		try {
 			authorService.remove(-1)
@@ -163,17 +166,16 @@ class AuthorServiceTests @Autowired constructor(
 	@Test
 	fun `Test update Juergen by its login`() {
 
-		val updatedJuergen = juergen
-
-		updatedJuergen.login = "updated login"
-		updatedJuergen.firstName = "updated firstname"
-		updatedJuergen.lastName = "updated lastname"
+		val updatedJuergen = Author(
+			login = "updated login",
+			firstName = "updated firstname",
+			lastName = "updated lastname")
 
 		val result = authorService.updateByLogin(juergen.login, updatedJuergen)
 
 		assertThat(authorService.getAll()).hasSize(2)
 		assertThat(authorService.getByLogin(updatedJuergen.login)).isEqualTo(updatedJuergen)
-		assertThat(result.login).isEqualTo(updatedJuergen.login)
+		assertThat(result).isEqualTo(updatedJuergen)
 
 		try {
 			authorService.update(-1, updatedJuergen)
