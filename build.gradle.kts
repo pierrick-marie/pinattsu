@@ -47,8 +47,10 @@ dependencies {
 		exclude(module = "junit")
 		exclude(module = "mockito-core")
 	}
-	testImplementation("org.junit.jupiter:junit-jupiter-api")
 	testImplementation("com.ninja-squad:springmockk:4.0.0")
+	testImplementation("org.junit.jupiter:junit-jupiter-api")
+	testImplementation("org.hamcrest:hamcrest-library")
+	testImplementation("com.jayway.jsonpath:json-path")
 	testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 
 	kapt("org.springframework.boot:spring-boot-configuration-processor")

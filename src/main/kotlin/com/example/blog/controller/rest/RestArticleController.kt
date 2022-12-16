@@ -16,6 +16,7 @@ class RestArticleController(
 ) {
 
 	@GetMapping
+	@ResponseStatus(HttpStatus.OK)
 	fun findAll() = articleService.getAll()
 
 	@PostMapping
@@ -28,6 +29,7 @@ class RestArticleController(
 	))
 
 	@PutMapping("/{id}")
+	@ResponseStatus(HttpStatus.OK)
 	fun updateArticle(@PathVariable("id") id: Long, @RequestBody article: ApiRenderedArticle) = articleService.updateById(id, Article(
 		title = article.title,
 		content = article.content,
@@ -36,8 +38,10 @@ class RestArticleController(
 	))
 
 	@GetMapping("/{id}")
+	@ResponseStatus(HttpStatus.OK)
 	fun get(@PathVariable("id") id: Long) = articleService.getById(id)
 
 	@DeleteMapping("/{id}")
+	@ResponseStatus(HttpStatus.OK)
 	fun delete(@PathVariable("id") id: Long) = articleService.removeById(id)
 }
