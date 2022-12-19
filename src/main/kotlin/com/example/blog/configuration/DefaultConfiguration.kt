@@ -34,6 +34,7 @@ class DefaultConfiguration {
 			Article(
 				title = "My first article",
 				content = "Lorem Ipsum",
+				date = "2022-12-01",
 				author = pm1,
 			)
 
