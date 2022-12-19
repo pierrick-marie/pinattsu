@@ -4,8 +4,6 @@ import com.example.blog.entity.Article
 import com.example.blog.entity.Author
 import com.example.blog.repository.ArticleRepository
 import com.example.blog.repository.AuthorRepository
-import com.example.blog.service.ArticleServiceTests
-import com.ninjasquad.springmockk.clear
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import org.assertj.core.api.Assertions.assertThat
