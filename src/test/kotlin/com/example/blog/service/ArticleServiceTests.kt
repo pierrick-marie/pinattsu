@@ -141,6 +141,45 @@ class ArticleServiceTests @Autowired constructor(
 	}
 
 	@Test
+	fun `Test get article by date`() {
+		val articles = articleService.getByDate(primeArticle.date)
+
+		assertThat(articles).hasSize(1)
+		assertThat(articles).contains(primeArticle)
+	}
+
+	@Test
+	fun `Test get article by author Juergen`() {
+		val articles = articleService.getByAuthor(juergen)
+
+		assertThat(articles).hasSize(1)
+		assertThat(articles).contains(primeArticle)
+	}
+
+	@Test
+	fun `Test create article with unknown author`() {
+		val testedAuthor = Author(
+			login = "Unknown",
+			firstName = "F.",
+			lastName = "L."
+		)
+		val testedArticle = Article(
+			title = "New tested article",
+			content ="Exclusive content",
+			date = "2022-12-03",
+			author = testedAuthor)
+
+		try {
+			articleService.create(testedArticle)
+			fail("Exception not triggered")
+		} catch (e: ResponseStatusException) {
+			assertThat(e.statusCode).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR)
+		} catch (e: Exception) {
+			fail(e.message)
+		}
+	}
+
+	@Test
 	fun `Test update prime article by its id`() {
 
 		var updatedArticle = primeArticle
