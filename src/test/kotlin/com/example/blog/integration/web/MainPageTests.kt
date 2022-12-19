@@ -15,9 +15,9 @@ import org.springframework.http.HttpStatus
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class MainPage(@Autowired val restTemplate: TestRestTemplate) {
+class MainPageTests(@Autowired val restTemplate: TestRestTemplate) {
 
-    private val logger: Logger = LogManager.getLogger(MainPage::class.java)
+    private val logger: Logger = LogManager.getLogger(MainPageTests::class.java)
 
     @BeforeAll
     fun setup() {
@@ -30,14 +30,6 @@ class MainPage(@Autowired val restTemplate: TestRestTemplate) {
         val entity = restTemplate.getForEntity<String>("/")
         assertThat(entity.statusCode).isEqualTo(HttpStatus.OK)
         assertThat(entity.body).contains(" <h1>Welcome to my awesome new Blog!</h1>")
-    }
-
-    @Test
-    fun `Assert article page title, content and status code`() {
-        println(">> Assert author page, content and status code")
-        val entity = restTemplate.getForEntity<String>("/author/pm1")
-        assertThat(entity.statusCode).isEqualTo(HttpStatus.OK)
-        assertThat(entity.body).contains("pierrick", "MARIE", "A jedi!")
     }
 
     @AfterAll
