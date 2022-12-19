@@ -14,7 +14,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
-class AuthorTests @Autowired constructor(val mockMvc: MockMvc) {
+class AuthorRestTests @Autowired constructor(val mockMvc: MockMvc) {
 
 	@Test
 	fun `run ordered tests`() {
@@ -126,5 +126,11 @@ class AuthorTests @Autowired constructor(val mockMvc: MockMvc) {
 			.andExpect(jsonPath("\$.[0].login").value("pm2"))
 			.andExpect(jsonPath("\$.[1].login").value("pm4"))
 			.andExpect(jsonPath("\$.[1].firstName").value("F4"))
+
+		this.mockMvc.perform(
+			MockMvcRequestBuilders.put("/api/author/XXXX")
+				.content("{\"login\": \"pm4\",\"firstName\": \"F4\",\"lastName\": \"L4\"}")
+				.contentType(MediaType.APPLICATION_JSON)
+		).andExpect(status().isNotFound)
 	}
 }

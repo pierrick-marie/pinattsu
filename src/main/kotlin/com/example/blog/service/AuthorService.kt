@@ -15,7 +15,7 @@ class AuthorService (val authorRepository: AuthorRepository) {
 	private val logger: Logger = LogManager.getLogger(AuthorService::class.java)
 
 	fun getAll(): List<Author> {
-		return authorRepository.findAll().map{ it }
+		return authorRepository.findAll().map { it }
 	}
 
 	fun getById(id: Long): Author {

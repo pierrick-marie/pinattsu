@@ -14,7 +14,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
-class ArticleTests @Autowired constructor(val mockMvc: MockMvc) {
+class ArticleRestTests @Autowired constructor(val mockMvc: MockMvc) {
 
 	@Test
 	fun `run ordered tests`() {

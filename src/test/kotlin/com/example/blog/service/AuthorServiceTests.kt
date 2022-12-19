@@ -9,13 +9,13 @@ import org.assertj.core.api.Assertions.fail
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
+import org.junit.jupiter.api.fail
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager
 import org.springframework.http.HttpStatus
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import org.springframework.web.server.ResponseStatusException
-
 @ExtendWith(SpringExtension::class)
 @DataJpaTest
 class AuthorServiceTests @Autowired constructor(
@@ -92,10 +92,24 @@ class AuthorServiceTests @Autowired constructor(
 
 		val newAuthor = Author("new login", "test firstname", "test lastname")
 		val result = authorService.create(newAuthor)
+		entityManager.flush()
+		entityManager.clear()
 
 		assertThat(authorService.getAll()).hasSize(3)
 		assertThat(authorService.getByLogin(newAuthor.login)).isEqualTo(newAuthor)
 		assertThat(result).isEqualTo(newAuthor)
+
+		try {
+			val newAuthorBis = Author("new login", "test firstname", "test lastname")
+			authorService.create(newAuthorBis)
+			entityManager.flush()
+			entityManager.clear()
+			fail("Insert same author twice")
+		} catch (e: Exception) {
+			logger.info("OK: Exception after inserting same author twice")
+			logger.error(e.message)
+			return
+		}
 	}
 
 	@Test

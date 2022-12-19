@@ -25,9 +25,17 @@ class AuthorRepositoryTests @Autowired constructor(
 	}
 
 	@Test
-	fun `When findByLogin then return User`() {
+	fun `When findByLogin then return Juergen`() {
 
 		val testedAuthor = authorRepository.findByLogin(juergen.login)
 		assertThat(testedAuthor).isEqualTo(juergen)
+	}
+
+	@Test
+	fun `When findAll then return Juergen`() {
+
+		val testedAuthors = authorRepository.findAll()
+		assertThat(testedAuthors).contains(juergen)
+		assertThat(testedAuthors).hasSize(1)
 	}
 }
