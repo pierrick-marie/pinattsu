@@ -14,14 +14,14 @@ data class WebRenderedArticle(
 	val author: Author?,
 )
 
+fun Article.apiRender() = ApiRenderedArticle(
+	id, title, content, date, author?.login
+)
+
 data class ApiRenderedArticle(
 	val id: Long?,
 	val title: String,
 	val content: String,
 	val date: String?,
 	val author: String?,
-)
-
-fun Article.apiRender() = ApiRenderedArticle(
-	id, title, content, date, author?.login
 )
