@@ -7,8 +7,13 @@ import com.example.blog.repository.AuthorRepository
 import org.springframework.boot.ApplicationRunner
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.HttpMethod
+import org.springframework.security.config.annotation.web.builders.HttpSecurity
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
+import org.springframework.security.web.SecurityFilterChain
 
 @Configuration
+@EnableWebSecurity
 class DefaultConfiguration {
 
 	@Bean
@@ -59,4 +64,29 @@ class DefaultConfiguration {
 		articleRepository.save(art2)
 		articleRepository.save(art3)
 	}
+
+//	@Order(1)
+//	@Bean
+//	open fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
+//
+//		return http.requiresChannel().anyRequest().requiresSecure()
+//			.and().authorizeHttpRequests()
+//			.requestMatchers(HttpMethod.GET, "/").permitAll()
+//			.anyRequest().authenticated()
+//			.and()
+//			.formLogin().loginPage("/login")
+//			.permitAll()
+//			.and()
+//			.logout().permitAll()
+//			.and().build()
+//	}
+
+//	@Bean
+//	fun servletContainer(): ServletWebServerFactory? {
+//		val connector = Connector(TomcatServletWebServerFactory.DEFAULT_PROTOCOL)
+//		connector.setPort(8080)
+//		val tomcat = TomcatServletWebServerFactory()
+//		tomcat.addAdditionalTomcatConnectors(connector)
+//		return tomcat
+//	}
 }

@@ -35,7 +35,13 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-mustache")
 	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
+	implementation("org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.1.RELEASE")
 	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("org.springframework.boot:spring-boot-starter-webflux")
+	implementation("org.springframework.boot:spring-boot-starter-security")
+	implementation("org.springframework.security:spring-security-test")
+	implementation("org.springframework.security:spring-security-web")
+	implementation("org.springframework.security:spring-security-config")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
@@ -49,8 +55,6 @@ dependencies {
 	}
 	testImplementation("com.ninja-squad:springmockk:4.0.0")
 	testImplementation("org.junit.jupiter:junit-jupiter-api")
-//	testImplementation("org.hamcrest:hamcrest-library")
-//	testImplementation("com.jayway.jsonpath:json-path")
 	testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 
 	kapt("org.springframework.boot:spring-boot-configuration-processor")
