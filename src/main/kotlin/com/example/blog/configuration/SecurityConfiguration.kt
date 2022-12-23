@@ -37,10 +37,10 @@ class SecurityConfiguration {
 	fun filterChain(http: HttpSecurity): SecurityFilterChain {
 
 		http.authorizeHttpRequests().requestMatchers(
-			"/js/**", "/css/**", "/img/**"
-		).permitAll().anyRequest()
-			.authenticated().and().formLogin().loginPage("/login").permitAll().and().logout()
-			.invalidateHttpSession(true).clearAuthentication(true)
+			"/js/**", "/css/**", "/img/**", "/"
+		).permitAll().requestMatchers("/**").hasRole("USER").and() // .anyRequest().authenticated().and()
+			.formLogin().loginPage("/login").permitAll().and().logout()
+			.invalidateHttpSession(true).clearAuthentication(true) // Default behaviour
 			.logoutRequestMatcher(AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login?logout")
 			.permitAll()
 
@@ -53,6 +53,12 @@ class SecurityConfiguration {
 		val encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder()
 		val password = encoder.encode("password")
 		val manager = InMemoryUserDetailsManager()
+
+		val visitor = User.withUsername("visitor")
+			.password(password)
+			.roles("VISITOR")
+			.build()
+		manager.createUser(visitor)
 
 		val user = User.withUsername("user")
 			.password(password)
