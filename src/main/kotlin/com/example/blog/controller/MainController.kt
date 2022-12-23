@@ -26,10 +26,10 @@ class MainController(
 		return "main"
 	}
 
-	@GetMapping("/secured-page.html")
+	@GetMapping("/access-denied.html")
 	fun security(model: Model): String {
 
-		return "secured-page"
+		return "access-denied"
 	}
 
 	@GetMapping("/login")

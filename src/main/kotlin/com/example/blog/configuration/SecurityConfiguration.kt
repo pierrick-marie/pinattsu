@@ -36,13 +36,29 @@ class SecurityConfiguration {
 	@Bean
 	fun filterChain(http: HttpSecurity): SecurityFilterChain {
 
-		http.authorizeHttpRequests().requestMatchers(
-			"/js/**", "/css/**", "/img/**", "/"
-		).permitAll().requestMatchers("/**").hasRole("USER").and() // .anyRequest().authenticated().and()
-			.formLogin().loginPage("/login").permitAll().and().logout()
-			.invalidateHttpSession(true).clearAuthentication(true) // Default behaviour
-			.logoutRequestMatcher(AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login?logout")
-			.permitAll()
+		http
+			.requiresChannel()
+				.anyRequest()
+				.requiresSecure()
+				.and()
+			.authorizeHttpRequests()
+			.requestMatchers("/resources/**", "/access-denied.html", "/login*", "/")
+				.permitAll()
+			.requestMatchers("/authors", "/author/**", "/articles", "/article/**")
+				.hasRole("USER")
+				.and()
+			.formLogin()
+				.loginPage("/login")
+				.defaultSuccessUrl("/")
+				.and()
+			.logout()
+				.invalidateHttpSession(true)
+				.clearAuthentication(true) // Default behaviour
+				.logoutRequestMatcher(AntPathRequestMatcher("/logout"))
+				.logoutSuccessUrl("/login?logout")
+				.and()
+			.exceptionHandling()
+				.accessDeniedPage("/access-denied.html")
 
 		return http.build()
 	}
