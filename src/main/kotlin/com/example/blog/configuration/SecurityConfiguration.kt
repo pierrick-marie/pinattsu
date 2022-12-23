@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.crypto.factory.PasswordEncoderFactories
 import org.springframework.security.provisioning.InMemoryUserDetailsManager
 import org.springframework.security.web.SecurityFilterChain
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher
 
 
 @Configuration
@@ -34,12 +35,14 @@ class SecurityConfiguration {
 
 	@Bean
 	fun filterChain(http: HttpSecurity): SecurityFilterChain {
-		http
-			.httpBasic(withDefaults())
-//			.authorizeHttpRequests()
-//			.requestMatchers("/").permitAll()
-//			.and()
-			.formLogin().loginPage("/login")
+
+		http.authorizeHttpRequests().requestMatchers(
+			"/js/**", "/css/**", "/img/**"
+		).permitAll().anyRequest()
+			.authenticated().and().formLogin().loginPage("/login").permitAll().and().logout()
+			.invalidateHttpSession(true).clearAuthentication(true)
+			.logoutRequestMatcher(AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login?logout")
+			.permitAll()
 
 		return http.build()
 	}
