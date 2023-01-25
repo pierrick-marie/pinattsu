@@ -2,9 +2,9 @@
 
 Pour commencer : https://spring.io/guides/tutorials/spring-boot-kotlin/
 
-# License
+# License BSD 3-Clause
 
-Do What the Fuck You Want to Public License (WTFPL)
+https://framagit.org/pierrick/spring-boot-discovery/-/raw/main/LICENSE
 
 # Ressources
 
