@@ -31,4 +31,4 @@ N'hésitez pas à améliorer ce programme en envoyant des PR ou me contacter dir
 
 # Badges
 
-[![License](https://img.shields.io/badge/License-BSD%203--Clause-green.svg)](https://opensource.org/licenses/BSD-3-Clause) [![made-with-C++](https://img.shields.io/badge/Made%20with-C++-%23E34F26.svg)](https://cpp-lang.net/) [![made-with-Kotlin](https://img.shields.io/badge/Made%20with-Kotlin-%23E34F26.svg)](https://www.java.com/) [![made-with-SpringBoot](https://img.shields.io/badge/Made%20with-SpringBoot-blue.svg)](https://spring.io/projects/spring-boot)
+[![License](https://img.shields.io/badge/License-BSD%203--Clause-green.svg)](https://opensource.org/licenses/BSD-3-Clause) [![made-with-Kotlin](https://img.shields.io/badge/Made%20with-Kotlin-%23E34F26.svg)](https://kotlinlang.org/) [![made-with-SpringBoot](https://img.shields.io/badge/Made%20with-SpringBoot-blue.svg)](https://spring.io/projects/spring-boot)
