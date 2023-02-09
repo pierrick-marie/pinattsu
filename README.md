@@ -1,10 +1,13 @@
-# Demonstration d'un site web avec Spring boot & Kotlin
+Demonstration d'un site web avec Spring boot & Kotlin
+========================================
 
-Pour commencer : https://spring.io/guides/tutorials/spring-boot-kotlin/
+# Documentation
 
-# License
+Pour débuter avec SpringBoot : https://spring.io/guides/tutorials/spring-boot-kotlin/
 
-Do What the Fuck You Want to Public License (WTFPL)
+# License BSD 3-Clause
+
+https://framagit.org/pierrick/spring-boot-discovery/-/raw/main/LICENSE
 
 # Ressources
 
@@ -17,3 +20,15 @@ Do What the Fuck You Want to Public License (WTFPL)
 1. création des entités auteur et article consultables via un navigateur web
 2. création d'une API REST pour consulter et éditer articles et auteurs
 3. en cours : sécurisation du site avec un système d'authentification
+
+# Auteur
+
+Developpeur: Pierrick MARIE contact at pierrickmarie.info
+
+# Contribuer
+
+N'hésitez pas à améliorer ce programme en envoyant des PR ou me contacter directement par mail.
+
+# Badges
+
+[![License](https://img.shields.io/badge/License-BSD%203--Clause-green.svg)](https://opensource.org/licenses/BSD-3-Clause) [![made-with-Kotlin](https://img.shields.io/badge/Made%20with-Kotlin-%23E34F26.svg)](https://kotlinlang.org/) [![made-with-SpringBoot](https://img.shields.io/badge/Made%20with-SpringBoot-blue.svg)](https://spring.io/projects/spring-boot)
