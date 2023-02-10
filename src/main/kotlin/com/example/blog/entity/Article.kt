@@ -9,6 +9,7 @@ import java.time.LocalDateTime
 @Entity
 class Article(
 	var title: String,
+	@Lob
 	var content: String,
 	var date: String = LocalDateTime.now().format(),
 	@ManyToOne(fetch = FetchType.LAZY)

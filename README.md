@@ -5,21 +5,33 @@ Demonstration d'un site web avec Spring boot & Kotlin
 
 Pour débuter avec SpringBoot : https://spring.io/guides/tutorials/spring-boot-kotlin/
 
-# License BSD 3-Clause
+### Authentication
 
-https://framagit.org/pierrick/spring-boot-discovery/-/raw/main/LICENSE
+* https://spring.io/guides/gs/securing-web/
+* https://www.baeldung.com/kotlin/spring-security-dsl
+* https://www.baeldung.com/spring-security-login
 
-# Ressources
+### Ressources
 
 * https://spring.io/guides/tutorials/spring-security-and-angular-js/
 * https://www.baeldung.com/spring-boot-angular-web
 * https://www.bezkoder.com/spring-boot-jpa-crud-rest-api/
 
-# Avancement
+# License BSD 3-Clause
+
+https://framagit.org/pierrick/spring-boot-discovery/-/raw/main/LICENSE
+
+# Features
 
 1. création des entités auteur et article consultables via un navigateur web
 2. création d'une API REST pour consulter et éditer articles et auteurs
-3. en cours : sécurisation du site avec un système d'authentification
+3. tests unitaires et intégration : 100%
+4. https
+5. mécanisme d'authentification et de contrôle d'accès
+
+### En cours
+
+* ux + scss
 
 # Auteur
 
