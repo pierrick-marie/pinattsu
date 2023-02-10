@@ -32,6 +32,15 @@ class MainController(
 		return "access-denied"
 	}
 
+	@GetMapping("/admin")
+	fun admin(model: Model): String {
+
+		model["title"] = "Administration page"
+		model["banner"] = properties.banner
+
+		return "admin"
+	}
+
 	@GetMapping("/login")
 	fun login(): String {
 

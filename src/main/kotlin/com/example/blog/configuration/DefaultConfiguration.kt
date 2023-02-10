@@ -7,22 +7,8 @@ import com.example.blog.repository.AuthorRepository
 import org.springframework.boot.ApplicationRunner
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.security.config.Customizer
-import org.springframework.security.config.annotation.web.builders.HttpSecurity
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
-import org.springframework.security.config.annotation.web.configurers.ExpressionUrlAuthorizationConfigurer.ExpressionInterceptUrlRegistry
-import org.springframework.security.config.annotation.web.configurers.HttpBasicConfigurer
-import org.springframework.security.core.userdetails.User
-import org.springframework.security.core.userdetails.UserDetailsService
-import org.springframework.security.crypto.factory.PasswordEncoderFactories
-import org.springframework.security.provisioning.InMemoryUserDetailsManager
-import org.springframework.security.web.SecurityFilterChain
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher
-import org.springframework.security.web.util.matcher.RequestMatcher
-
 
 @Configuration
-@EnableWebSecurity
 class DefaultConfiguration {
 
 	@Bean
@@ -72,64 +58,5 @@ class DefaultConfiguration {
 		articleRepository.save(art1)
 		articleRepository.save(art2)
 		articleRepository.save(art3)
-	}
-
-	@Bean
-	@Throws(Exception::class)
-	fun filterChain(http: HttpSecurity): SecurityFilterChain? {
-		http
-			.authorizeHttpRequests {request ->
-				request
-					.requestMatchers("/articles/**").hasRole("USER")
-					.anyRequest().permitAll()
-			}
-			.formLogin {login ->
-				login
-					.loginPage("/login")
-					.defaultSuccessUrl("/")
-			}
-			.logout {logout ->
-				logout
-					.invalidateHttpSession(true)
-					.clearAuthentication(true)
-					.logoutRequestMatcher(AntPathRequestMatcher("/logout"))
-					.logoutSuccessUrl("/login?logout")
-			}
-			.exceptionHandling { exception ->
-				exception
-					.accessDeniedPage("/access-denied")
-			}
-			.httpBasic { }
-
-		return http.build()
-	}
-
-
-	@Bean
-	fun userDetailsService(): UserDetailsService {
-
-		val encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder()
-		val password = encoder.encode("p")
-		val manager = InMemoryUserDetailsManager()
-
-		val visitor = User.withUsername("visitor")
-			.password(password)
-			.roles("VISITOR")
-			.build()
-		manager.createUser(visitor)
-
-		val user = User.withUsername("user")
-			.password(password)
-			.roles("USER")
-			.build()
-		manager.createUser(user)
-
-		val admin = User.withUsername("admin")
-			.password(password)
-			.roles("USER", "ADMIN")
-			.build()
-		manager.createUser(admin)
-
-		return manager
 	}
 }

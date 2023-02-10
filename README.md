@@ -6,6 +6,7 @@ Start with this tutorial: https://spring.io/guides/tutorials/spring-boot-kotlin/
 
 * https://spring.io/guides/gs/securing-web/
 * https://www.baeldung.com/kotlin/spring-security-dsl
+* https://www.baeldung.com/spring-security-login
 
 # License
 
