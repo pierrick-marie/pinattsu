@@ -26,7 +26,7 @@ class MainController(
 		return "main"
 	}
 
-	@GetMapping("/access-denied.html")
+	@GetMapping("/access-denied")
 	fun security(model: Model): String {
 
 		return "access-denied"

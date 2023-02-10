@@ -2,6 +2,11 @@
 
 Start with this tutorial: https://spring.io/guides/tutorials/spring-boot-kotlin/
 
+# Authentication
+
+* https://spring.io/guides/gs/securing-web/
+* https://www.baeldung.com/kotlin/spring-security-dsl
+
 # License
 
 Do What the Fuck You Want to Public License (WTFPL)
