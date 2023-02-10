@@ -72,9 +72,15 @@ tasks.withType<Test> {
 	useJUnitPlatform()
 }
 
+tasks.register<Exec>("buildVueJs") {
+	workingDir("./src/vuejs/")
+	commandLine("npm", "run", "build")
+}
+
 tasks.register<Copy>("copyVueJs") {
 	dependsOn("jar")
-	from("src/vuejs/vuejs.html")
+	dependsOn("buildVueJs")
+	from("src/vuejs/dist")
 	into(layout.buildDirectory.dir("resources/main/static/"))
 }
 
