@@ -73,6 +73,7 @@ tasks.withType<Test> {
 }
 
 tasks.register<Exec>("buildVueJs") {
+	dependsOn("bootJar")
 	workingDir("./src/vuejs/")
 	commandLine("npm", "run", "build")
 }
