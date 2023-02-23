@@ -82,6 +82,6 @@ tasks.register<Copy>("copyVueJs") {
 	dependsOn("jar")
 	dependsOn("buildVueJs")
 	from("src/vuejs/dist")
-	into(layout.buildDirectory.dir("resources/main/static/"))
+	into(layout.buildDirectory.dir("resources/main/static/vuejs"))
 }
 

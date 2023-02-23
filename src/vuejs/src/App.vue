@@ -11,8 +11,8 @@ import HelloWorld from "./components/HelloWorld.vue";
 			<HelloWorld msg="You did it Reddit! It update the main page after re-build SpringBoot" />
 
 			<nav>
-				<RouterLink to="/">Home</RouterLink>
-				<RouterLink to="/about">About</RouterLink>
+				<RouterLink to="/vuejs/index.html">Home</RouterLink>
+				<RouterLink to="/vuejs/about">About</RouterLink>
 			</nav>
 		</div>
 	</header>

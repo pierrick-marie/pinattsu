@@ -41,6 +41,11 @@ class MainController(
 		return "admin"
 	}
 
+	@GetMapping("/secure")
+	fun secure(model: Model): String {
+		return "secured-page.html"
+	}
+
 	@GetMapping("/login")
 	fun login(): String {
 

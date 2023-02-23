@@ -22,8 +22,9 @@ class SecurityConfiguration {
 			.authorizeHttpRequests { request ->
 				request
 					.requestMatchers("/admin").hasRole("ADMIN")
-					.requestMatchers("/", "/login").permitAll()
-					.anyRequest().hasRole("USER")
+					.requestMatchers("/secure").hasRole("USER")
+					.requestMatchers("/vuejs/**", ).authenticated()
+					.anyRequest().permitAll()
 			}
 			.formLogin { login ->
 				login
