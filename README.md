@@ -1,6 +1,10 @@
 Demonstration d'un site web avec Spring boot & Kotlin
 ========================================
 
+# Objectifs
+
+Apprendre à utiliser SpringBoot avec Kotlin et Gradle en développant une plateforme simple de micro-blogging.
+
 # Documentation
 
 Pour débuter avec SpringBoot : https://spring.io/guides/tutorials/spring-boot-kotlin/
