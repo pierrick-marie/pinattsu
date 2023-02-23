@@ -32,11 +32,6 @@ class MainController(
 		return "access-denied"
 	}
 
-	@GetMapping("/index.html")
-	fun index(): String {
-		return "index.html"
-	}
-
 	@GetMapping("/admin")
 	fun admin(model: Model): String {
 
