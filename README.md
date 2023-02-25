@@ -23,7 +23,7 @@ Pour débuter avec SpringBoot : https://spring.io/guides/tutorials/spring-boot-k
 
 # License BSD 3-Clause
 
-https://framagit.org/pierrick/spring-boot-discovery/-/raw/main/LICENSE
+https://raw.githubusercontent.com/pierrick-marie/springboot-discovery/main/LICENSE
 
 # Features
 
