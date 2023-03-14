@@ -23,7 +23,7 @@ class SecurityConfiguration {
 				request
 					.requestMatchers("/admin").hasRole("ADMIN")
 					.requestMatchers("/secure").hasRole("USER")
-					.requestMatchers("/vuejs/**", ).authenticated()
+					// .requestMatchers("/vuejs/**").authenticated()
 					.anyRequest().permitAll()
 			}
 			.formLogin { login ->

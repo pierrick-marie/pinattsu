@@ -72,16 +72,16 @@ tasks.withType<Test> {
 	useJUnitPlatform()
 }
 
-tasks.register<Exec>("buildVueJs") {
-	dependsOn("bootJar")
-	workingDir("./src/vuejs/")
-	commandLine("npm", "run", "build")
-}
+//tasks.register<Exec>("buildVueJs") {
+//	dependsOn("bootJar")
+//	workingDir("./src/vuejs/")
+//	commandLine("npm", "run", "build")
+//}
 
-tasks.register<Copy>("copyVueJs") {
-	dependsOn("jar")
-	dependsOn("buildVueJs")
-	from("src/vuejs/dist")
-	into(layout.buildDirectory.dir("resources/main/static/vuejs"))
-}
+//tasks.register<Copy>("copyVueJs") {
+//	dependsOn("jar")
+//	dependsOn("buildVueJs")
+//	from("src/vuejs/dist")
+//	into(layout.buildDirectory.dir("resources/main/static/vuejs"))
+//}
 

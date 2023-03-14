@@ -1,0 +1,24 @@
+<!-- {{> header}}
+
+<h1>{{title}}</h1>
+
+<p>Click <a href="/secure">here</a> to enter a restricted area.</p>
+
+{{> footer}}
+-->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/template.html :: head">
+</head>
+<!--<th:block th:insert="fragments/template.html :: head">
+</th:block>-->
+<body>
+
+<p>
+	Hello main :)
+</p>
+
+<footer th:insert="fragments/template.html :: footer"></footer>
+</body>
+</html>

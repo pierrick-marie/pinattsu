@@ -43,6 +43,9 @@ class MainController(
 
 	@GetMapping("/secure")
 	fun secure(model: Model): String {
+
+		model["test"] = "Thymeleaf model example user"
+
 		return "secured-page.html"
 	}
 

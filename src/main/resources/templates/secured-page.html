@@ -1,10 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Secured area</title>
+	<title>Une page avec thymeleaf</title>
+	<meta charset="UTF-8">
 </head>
 <body>
-    <h1>Welcome in secured page!</h1>
+	<p>
+		Bonjour <i data-th-text="${ test }">David</i>. <br >
+		Nous sommes le <i data-th-text="${ #temporals.format( T(java.time.LocalDate).now(), 'dd MMMM YYYY') }">Aujourd'hui</i>.
+	</p>
+
+	<footer th:insert="fragments/template.html :: footer"> </footer>
 </body>
 </html>
