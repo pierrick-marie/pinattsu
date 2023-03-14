@@ -9,9 +9,12 @@
 </head>
 
 <body>
+
 <header th:fragment="header">
-	<h1>Thymeleaf Fragments sample</h1>
+	<h1 th:utext="${banner.title}">Blog banner title</h1>
+	<h2 th:utext="${banner.content}">Blog banner content</h2>
 </header>
+
 <p>Go to the next page to see fragments in action</p>
 <aside>
 	<div>This is a sidebar</div>

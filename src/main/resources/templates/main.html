@@ -9,16 +9,18 @@
 
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head th:include="fragments/template.html :: head">
-</head>
-<!--<th:block th:insert="fragments/template.html :: head">
-</th:block>-->
+
+<head th:replace="~{fragments/template.html :: head}"></head>
+
 <body>
+
+<header th:replace="~{fragments/template.html :: header}"></header>
 
 <p>
 	Hello main :)
 </p>
 
-<footer th:insert="fragments/template.html :: footer"></footer>
+<footer th:replace="~{fragments/template.html :: footer}"></footer>
+
 </body>
 </html>
