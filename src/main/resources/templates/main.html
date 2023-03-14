@@ -1,26 +1,19 @@
-<!-- {{> header}}
-
-<h1>{{title}}</h1>
-
-<p>Click <a href="/secure">here</a> to enter a restricted area.</p>
-
-{{> footer}}
--->
-
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
 <head th:replace="~{fragments/template.html :: head}"></head>
 
 <body>
 
-<header th:replace="~{fragments/template.html :: header}"></header>
+	<header th:replace="~{fragments/template.html :: header}"></header>
 
-<p>
-	Hello main :)
-</p>
+	<aside th:replace="~{fragments/template.html :: aside}"></aside>
 
-<footer th:replace="~{fragments/template.html :: footer}"></footer>
+	<p>
+		Hello main :)
+	</p>
+
+	<footer th:replace="~{fragments/template.html :: footer}"></footer>
 
 </body>
 </html>

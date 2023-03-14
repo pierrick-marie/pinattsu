@@ -29,6 +29,9 @@ class MainController(
 	@GetMapping("/access-denied")
 	fun security(model: Model): String {
 
+		model["title"] = "! Secured area - Failed !"
+		model["banner"] = properties.banner
+
 		return "access-denied"
 	}
 
@@ -44,13 +47,17 @@ class MainController(
 	@GetMapping("/secure")
 	fun secure(model: Model): String {
 
-		model["test"] = "Thymeleaf model example user"
+		model["title"] = "! Secured area !"
+		model["banner"] = properties.banner
 
-		return "secured-page.html"
+		return "secure.html"
 	}
 
 	@GetMapping("/login")
-	fun login(): String {
+	fun login(model: Model): String {
+
+		model["title"] = "! Secured area - Login !"
+		model["banner"] = properties.banner
 
 		return "login"
 	}

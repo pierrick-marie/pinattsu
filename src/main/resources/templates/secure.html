@@ -9,7 +9,10 @@
 
 	<aside th:replace="~{fragments/template.html :: aside}"></aside>
 
-    <h1>Sorry, access denied!</h1>
+	<p>
+		Bonjour <i data-th-text="${ test }">David</i>. <br >
+		Nous sommes le <i data-th-text="${ #temporals.format( T(java.time.LocalDate).now(), 'dd MMMM YYYY') }">Aujourd'hui</i>.
+	</p>
 
 	<footer th:replace="~{fragments/template.html :: footer}"></footer>
 
