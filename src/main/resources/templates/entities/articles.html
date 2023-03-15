@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head data-th-replace="~{fragments/template :: head}"></head>
+
+<body>
+
+<header data-th-replace="~{fragments/template :: header}"></header>
+
+<aside data-th-replace="~{fragments/template :: aside}"></aside>
+
+<div class="content">
+
+	<section data-th-each="article : ${articles}">
+		<h2 data-th-text="|${article.author.firstName} ${article.author.lastName}|">First name</h2>
+
+		<h5 data-th-text="${article.title}"></h5>
+
+		<p data-th-text="${article.date}"></p>
+	</section>
+
+</div>
+
+<footer data-th-replace="~{fragments/template.html :: footer}"></footer>
+
+</body>
+
+</html>
+
+
+
+
