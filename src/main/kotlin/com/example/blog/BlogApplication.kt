@@ -1,6 +1,6 @@
 package com.example.blog
 
-import com.example.blog.property.DefaultProperties
+import com.example.blog.property.BlogProperties
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.runApplication
@@ -12,7 +12,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 import org.springframework.web.filter.CorsFilter
 
 @SpringBootApplication
-@EnableConfigurationProperties(DefaultProperties::class)
+@EnableConfigurationProperties(BlogProperties::class)
 class BlogApplication
 
 @Bean

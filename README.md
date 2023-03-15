@@ -5,6 +5,15 @@ Demonstration d'un site web avec Spring boot & Kotlin
 
 Pour débuter avec SpringBoot : https://spring.io/guides/tutorials/spring-boot-kotlin/
 
+### HTTPS
+
+* https://www.baeldung.com/spring-boot-https-self-signed-certificate
+
+### Application properties
+
+* https://www.baeldung.com/properties-with-spring
+* https://www.youtube.com/watch?v=PmGLn3ua_lU
+
 ### Authentication
 
 * https://spring.io/guides/gs/securing-web/

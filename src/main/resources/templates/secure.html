@@ -1,20 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="~{fragments/template.html :: head}"></head>
+<head th:replace="~{fragments/template :: head}"></head>
 
 <body>
 
-	<header th:replace="~{fragments/template.html :: header}"></header>
+	<header th:replace="~{fragments/template :: header}"></header>
 
-	<aside th:replace="~{fragments/template.html :: aside}"></aside>
+	<aside th:replace="~{fragments/template :: aside}"></aside>
 
-	<p>
-		Bonjour <i data-th-text="${ test }">David</i>. <br >
-		Nous sommes le <i data-th-text="${ #temporals.format( T(java.time.LocalDate).now(), 'dd MMMM YYYY') }">Aujourd'hui</i>.
-	</p>
+	<div class="content">
 
-	<footer th:replace="~{fragments/template.html :: footer}"></footer>
+		<p>
+			Bonjour <i th:text="${test}">David</i>. <br>
+			Nous sommes le <i th:text="${ #temporals.format( T(java.time.LocalDate).now(), 'dd MMMM YYYY') }">Aujourd'hui</i>.
+		</p>
+
+	</div>
+
+	<footer th:replace="~{fragments/template :: footer}"></footer>
 
 </body>
 </html>

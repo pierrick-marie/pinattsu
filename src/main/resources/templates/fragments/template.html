@@ -1,36 +1,30 @@
 <!DOCTYPE HTML>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-<head th:fragment="head(title)">
+<head>
 	<meta charset="UTF-8"/>
 
 	<link rel="stylesheet" href="./css/index.css" />
 	<link rel="icon" href="./img/favicon.ico">
 
-	<title th:utext="${title}">Page title</title>
+	<title th:text="${title}">Page title</title>
 </head>
 
 <body>
 
-<header th:fragment="header(title, content)">
-	<h1 th:utext="${title}">Blog banner title</h1>
-	<h2 th:utext="${content}">Blog banner content</h2>
+<header class="header">
+	<h1 th:text="${banner.title}">Blog banner title</h1>
+	<h2 th:text="${banner.content}">Blog banner content</h2>
 </header>
 
-<!--<p>Go to the next page to see fragments in action</p>-->
-
-<aside th:fragment="aside">
+<aside class="aside">
 	<h3>This is the sidebar of my blog</h3>
 	<p>
 		Click <a href="/secure">here</a> to enter a restricted area.
 	</p>
 </aside>
 
-<!--<div class="another">
-	This is another sidebar
-</div>-->
-
-<footer th:fragment="footer">
+<footer class="footer">
 	<p>This is my Thymeleaf footer!</p>
 </footer>
 

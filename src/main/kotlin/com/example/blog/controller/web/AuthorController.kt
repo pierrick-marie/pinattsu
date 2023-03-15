@@ -1,7 +1,7 @@
 package com.example.blog.controller.web
 
 import com.example.blog.entity.render.webRender
-import com.example.blog.property.DefaultProperties
+import com.example.blog.property.BlogProperties
 import com.example.blog.service.AuthorService
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable
 @Controller
 class AuthorController(
 	private val authorService: AuthorService,
-	private val properties: DefaultProperties
+	private val properties: BlogProperties
 ) {
 
 	private val logger: Logger = LogManager.getLogger(AuthorController::class.java)
