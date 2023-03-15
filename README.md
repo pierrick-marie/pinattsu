@@ -5,6 +5,15 @@ Demonstration d'un site web avec Spring boot & Kotlin
 
 Pour débuter avec SpringBoot : https://spring.io/guides/tutorials/spring-boot-kotlin/
 
+### Thymeleaf
+
+* https://www.thymeleaf.org/doc/tutorials/3.1/thymeleafspring.pdf
+* https://www.thymeleaf.org/doc/articles/layouts.html
+
+**Using texts**
+
+* https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#using-texts
+
 ### HTTPS
 
 * https://www.baeldung.com/spring-boot-https-self-signed-certificate

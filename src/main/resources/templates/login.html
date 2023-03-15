@@ -1,27 +1,27 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 
-<head th:replace="~{fragments/template :: head}"></head>
+<head data-th-replace="~{fragments/template :: head}"></head>
 
 <body>
 
-	<header th:replace="~{fragments/template :: header}"></header>
+	<header data-th-replace="~{fragments/template :: header}"></header>
 
-	<aside th:replace="~{fragments/template :: aside}"></aside>
+	<aside data-th-replace="~{fragments/template :: aside}"></aside>
 
 	<div class="content">
 
 		<h1>Please Log In</h1>
 
-		<div th:if="${param.error}">
+		<div data-th-if="${param.error}">
 			Error invalid username and password.
 		</div>
 
-		<div th:if="${param.logout}">
+		<div data-th-if="${param.logout}">
 			You have been logged out.
 		</div>
 
-		<form th:action="@{/login}" method="post">
+		<form data-th-action="@{/login}" method="post">
 			<div>
 				<input type="text" name="username" placeholder="Username"/>
 			</div>

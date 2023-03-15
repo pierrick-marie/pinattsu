@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="~{fragments/template.html :: head}"></head>
+<head data-th-replace="~{fragments/template :: head(title='Error 500')}"></head>
 
 <body>
 
-	<header th:replace="~{fragments/template.html :: header}"></header>
+	<div class="content">
 
-	<aside th:replace="~{fragments/template.html :: aside}"></aside>
+		<h1>Personnal error 500: Internal error. Something went wrong!</h1>
 
-	<h1>Personnal error 500: Internal error. Something went wrong!</h1>
+		<h2>Our Engineers are on it</h2>
 
-	<h2>Our Engineers are on it</h2>
+		<a href="/">Go home now!</a>
 
-	<a href="/">Go home now!</a>
+	</div>
 
-	<footer th:replace="~{fragments/template.html :: footer}"></footer>
+	<footer data-th-replace="~{fragments/template :: footer}"></footer>
 
 </body>
 </html>

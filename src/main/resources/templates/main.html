@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="~{fragments/template :: head}"></head>
+<head data-th-replace="~{fragments/template :: head}"></head>
 
 <body>
 
-	<header th:replace="~{fragments/template :: header}"></header>
+	<header data-th-replace="~{fragments/template :: header}"></header>
 
-	<aside th:replace="~{fragments/template :: aside}"></aside>
+	<aside data-th-replace="~{fragments/template :: aside}"></aside>
 
 	<div class="content">
+
 		<p>
 			Hello main :)
 		</p>
+
 	</div>
 
-	<footer th:replace="~{fragments/template.html :: footer}"></footer>
+	<footer data-th-replace="~{fragments/template.html :: footer}"></footer>
 
 </body>
 </html>
