@@ -1,9 +1,10 @@
-Demonstration d'un site web avec Spring boot & Kotlin
+Construction d'une API Rest avec Spring boot & Kotlin
 ========================================
 
 # Objectifs
 
-Apprendre à utiliser SpringBoot avec Kotlin et Gradle en développant une plateforme simple de micro-blogging.
+1. Apprendre é développeur une API Rest avec SpringBoot, Kotlin et Gradle.
+2. Construire un client pour l'API avec React et Next.js
 
 # Documentation
 
@@ -50,10 +51,6 @@ https://raw.githubusercontent.com/pierrick-marie/springboot-discovery/main/LICEN
 3. tests unitaires et intégration : 100%
 4. https
 5. mécanisme d'authentification et de contrôle d'accès
-
-### En cours
-
-* ux + scss
 
 # Auteur
 
