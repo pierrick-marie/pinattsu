@@ -10,6 +10,7 @@ import java.time.LocalDateTime
 class Article(
 	var title: String,
 	@Lob
+	@Column(columnDefinition="LONGTEXT")
 	var content: String,
 	var date: String = LocalDateTime.now().format(),
 	@ManyToOne(fetch = FetchType.LAZY)
