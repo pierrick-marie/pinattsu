@@ -4,6 +4,7 @@ import com.example.blog.extension.format
 import jakarta.persistence.*
 import org.hibernate.annotations.OnDelete
 import org.hibernate.annotations.OnDeleteAction
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration
 import java.time.LocalDateTime
 
 @Entity
@@ -16,7 +17,7 @@ class Article(
 	@ManyToOne(fetch = FetchType.LAZY)
 	@OnDelete(action = OnDeleteAction.CASCADE)
 	var author: Author? = null,
-	@Id @GeneratedValue
+	@Id  @GeneratedValue(strategy = GenerationType.IDENTITY)
 	var id: Long? = null,
 ) {
 

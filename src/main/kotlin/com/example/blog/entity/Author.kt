@@ -1,6 +1,7 @@
 package com.example.blog.entity
 
 import jakarta.persistence.*
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration
 
 @Entity
 class Author (
@@ -9,7 +10,8 @@ class Author (
 	var firstName: String,
 	var lastName: String,
 	var description: String? = null,
-	@Id @GeneratedValue var id: Long? = null,
+	@Id  @GeneratedValue(strategy = GenerationType.IDENTITY)
+	var id: Long? = null,
 ) {
 
 	override fun equals(other: Any?): Boolean =
