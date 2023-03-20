@@ -39,3 +39,6 @@ out/
 ### Security Key ###
 src/main/resources/keystore/
 src/main/resources/ssl.properties
+
+### Docs ###
+docs
