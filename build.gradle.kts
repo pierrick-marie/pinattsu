@@ -65,23 +65,8 @@ tasks.withType<KotlinCompile> {
 		freeCompilerArgs = listOf("-Xjsr305=strict")
 		jvmTarget = "17"
 	}
-//	finalizedBy("copyVueJs")
 }
 
 tasks.withType<Test> {
 	useJUnitPlatform()
 }
-
-//tasks.register<Exec>("buildVueJs") {
-//	dependsOn("bootJar")
-//	workingDir("./src/vuejs/")
-//	commandLine("npm", "run", "build")
-//}
-
-//tasks.register<Copy>("copyVueJs") {
-//	dependsOn("jar")
-//	dependsOn("buildVueJs")
-//	from("src/vuejs/dist")
-//	into(layout.buildDirectory.dir("resources/main/static/vuejs"))
-//}
-
