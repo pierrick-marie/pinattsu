@@ -24,7 +24,7 @@ class RestArticleController(
 	fun createArticle(@RequestBody article: ApiRenderedArticle) = articleService.create(Article(
 		title = article.title,
 		content = article.content,
-		date = article?.date?:"",
+		date = article.date?:"",
 		author = article.author?.let { authorService.getByLogin(it) }
 	))
 
@@ -33,7 +33,7 @@ class RestArticleController(
 	fun updateArticle(@PathVariable("id") id: Long, @RequestBody article: ApiRenderedArticle) = articleService.updateById(id, Article(
 		title = article.title,
 		content = article.content,
-		date = article?.date?:"",
+		date = article.date?:"",
 		author = article.author?.let { authorService.getByLogin(it) }
 	))
 
