@@ -53,7 +53,7 @@ class AuthorServiceTests @Autowired constructor(
 	}
 
 	@Test
-	fun `Test get Juergen by id`() {
+	fun `Test get Annie by id`() {
 
 		val testedAuthor = annie.id?.let { authorService.getById(it) }
 
@@ -70,7 +70,7 @@ class AuthorServiceTests @Autowired constructor(
 	}
 
 	@Test
-	fun `Test get Juergen by login`() {
+	fun `Test get Annie by login`() {
 
 		val testedAuthor = authorService.getByLogin(annie.login)
 
@@ -114,7 +114,7 @@ class AuthorServiceTests @Autowired constructor(
 	}
 
 	@Test
-	fun `Test remove Juergen by its id`() {
+	fun `Test remove Annie by its id`() {
 
 		assertThat(authorService.getAll()).hasSize(2)
 
@@ -134,7 +134,7 @@ class AuthorServiceTests @Autowired constructor(
 	}
 
 	@Test
-	fun `Test remove Juergen by its login`() {
+	fun `Test remove Annie by its login`() {
 
 		assertThat(authorService.getAll()).hasSize(2)
 
@@ -154,7 +154,7 @@ class AuthorServiceTests @Autowired constructor(
 	}
 
 	@Test
-	fun `Test update Juergen by its id`() {
+	fun `Test update Annie by its id`() {
 
 		var updatedAnnie = annie
 
@@ -179,7 +179,7 @@ class AuthorServiceTests @Autowired constructor(
 	}
 
 	@Test
-	fun `Test update Juergen by its login`() {
+	fun `Test update Annie by its login`() {
 
 		val updatedAnnie = Author(
 			login = "kj",
