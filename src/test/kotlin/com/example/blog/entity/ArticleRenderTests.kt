@@ -3,43 +3,45 @@ package com.example.blog.entity
 import com.example.blog.entity.render.apiRender
 import com.example.blog.entity.render.webRender
 import org.junit.jupiter.api.Test
-import org.springframework.boot.test.context.SpringBootTest
 import org.assertj.core.api.Assertions.assertThat
+import org.springframework.test.context.ActiveProfiles
 
-@SpringBootTest
+@ActiveProfiles("test")
 class ArticleRenderTests {
 
-	val juergen = Author(
-		login = "juergen",
-		firstName = "Junior",
-		lastName = "Da Silva",
+	val annie = Author(
+		login = "ae",
+		firstName = "Annie",
+		lastName = "Easley",
 	)
 
-	val bestSeller = Article(
+	val biography = Article(
 		id = 1,
-		title = "My best seller",
-		content = "Surprise!",
-		author = juergen
+		title = "My biography",
+		content = """
+			Annie was born in 1933 in Birmingham Alabama, and died in 2011. She attended Xavier University where she majored in pharmacy for around 2 years. Shortly after finishing University, she met her husband and they moved to Cleveland. This is where Annie’s life changed for the better. As there was no pharmaceutical school nearby, she applied for a job at the National Advisory Committee for Aeronautics (NACA) and within 2 weeks had started working there. She was one of four African Americans who worked there and developed and implemented code which led to the development of the batteries used in hybrid cars. She is well known for being one of the famous women in technology for encouraging women and people of her colour to study and enter STEM fields.
+		""".trimIndent(),
+		author = annie
 	)
 
 	@Test
 	fun `Test web render author`() {
 
-		val webRenderedArticle = bestSeller.webRender()
-		assertThat(webRenderedArticle.title).isEqualTo(bestSeller.title)
-		assertThat(webRenderedArticle.content).isEqualTo(bestSeller.content)
-		assertThat(webRenderedArticle.date).isEqualTo(bestSeller.date)
-		assertThat(webRenderedArticle.author).isEqualTo(juergen)
+		val webRenderedArticle = biography.webRender()
+		assertThat(webRenderedArticle.title).isEqualTo(biography.title)
+		assertThat(webRenderedArticle.content).isEqualTo(biography.content)
+		assertThat(webRenderedArticle.date).isEqualTo(biography.date)
+		assertThat(webRenderedArticle.author).isEqualTo(annie)
 	}
 
 	@Test
 	fun `Test REST API render author`() {
 
-		val apiRenderedArticle = bestSeller.apiRender()
-		assertThat(apiRenderedArticle.id).isEqualTo(bestSeller.id)
-		assertThat(apiRenderedArticle.title).isEqualTo(bestSeller.title)
-		assertThat(apiRenderedArticle.content).isEqualTo(bestSeller.content)
-		assertThat(apiRenderedArticle.date).isEqualTo(bestSeller.date)
-		assertThat(apiRenderedArticle.author).isEqualTo(juergen.login)
+		val apiRenderedArticle = biography.apiRender()
+		assertThat(apiRenderedArticle.id).isEqualTo(biography.id)
+		assertThat(apiRenderedArticle.title).isEqualTo(biography.title)
+		assertThat(apiRenderedArticle.content).isEqualTo(biography.content)
+		assertThat(apiRenderedArticle.date).isEqualTo(biography.date)
+		assertThat(apiRenderedArticle.author).isEqualTo(annie.login)
 	}
 }
