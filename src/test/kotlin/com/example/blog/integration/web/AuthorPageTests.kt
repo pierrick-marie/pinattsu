@@ -42,6 +42,13 @@ class AuthorPageTests(@Autowired val restTemplate: TestRestTemplate) {
         assertThat(entity.body).contains("<title>Authors</title>", "<h2>Annie EASLEY</h2>", "<h2>Mary KELLER</h2>")
     }
 
+    @Test
+    fun `Assert author does not exist with status code 404`() {
+        logger.info(">> Assert author does not exists: status code 404")
+        val entity = restTemplate.getForEntity<String>("/author/login-who-does-not-exist")
+        assertThat(entity.statusCode).isEqualTo(HttpStatus.NOT_FOUND)
+    }
+
     @AfterAll
     fun teardown() {
         logger.info(">> Tear down")
