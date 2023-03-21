@@ -16,27 +16,27 @@ class AuthorRepositoryTests @Autowired constructor(
 	val authorRepository: AuthorRepository,
 ) {
 
-	private val juergen = Author("ae", "Annie", "Easley")
+	private val annie = Author("ae", "Annie", "Easley")
 
 	@BeforeEach
 	fun init() {
 		entityManager.clear()
-		entityManager.persist(juergen)
+		entityManager.persist(annie)
 		entityManager.flush()
 	}
 
 	@Test
 	fun `When findByLogin then return Juergen`() {
 
-		val testedAuthor = authorRepository.findByLogin(juergen.login)
-		assertThat(testedAuthor).isEqualTo(juergen)
+		val testedAuthor = authorRepository.findByLogin(annie.login)
+		assertThat(testedAuthor).isEqualTo(annie)
 	}
 
 	@Test
 	fun `When findAll then return Juergen`() {
 
 		val testedAuthors = authorRepository.findAll()
-		assertThat(testedAuthors).contains(juergen)
+		assertThat(testedAuthors).contains(annie)
 		assertThat(testedAuthors).hasSize(1)
 	}
 }
