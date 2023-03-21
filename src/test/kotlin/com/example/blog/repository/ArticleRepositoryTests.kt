@@ -1,9 +1,7 @@
-package com.example.blog.reposotory
+package com.example.blog.repository
 
 import com.example.blog.entity.Article
 import com.example.blog.entity.Author
-import com.example.blog.repository.ArticleRepository
-import com.example.blog.repository.AuthorRepository
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import org.assertj.core.api.Assertions.assertThat
@@ -23,8 +21,8 @@ class ArticleRepositoryTests @Autowired constructor(
 ) {
 	private val logger: Logger = LogManager.getLogger(ArticleRepositoryTests::class.java)
 
-	private val juergen = Author("springjuergen", "Juergen", "Hoeller")
-	private val peter = Author("pm1", "Peter", "M.")
+	private val juergen = Author("ae", "Annie", "Easley")
+	private val peter = Author("mk", "Mary", "Keller")
 
 	private val primeArticle = Article(
 		title = "Test title 0",
