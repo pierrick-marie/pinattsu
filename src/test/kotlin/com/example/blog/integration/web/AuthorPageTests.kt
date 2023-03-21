@@ -12,9 +12,11 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.web.client.TestRestTemplate
 import org.springframework.boot.test.web.client.getForEntity
 import org.springframework.http.HttpStatus
+import org.springframework.test.context.ActiveProfiles
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@ActiveProfiles("test")
 class AuthorPageTests(@Autowired val restTemplate: TestRestTemplate) {
 
     private val logger: Logger = LogManager.getLogger(AuthorPageTests::class.java)
@@ -26,18 +28,18 @@ class AuthorPageTests(@Autowired val restTemplate: TestRestTemplate) {
 
     @Test
     fun `Assert author personal page, content and status code`() {
-        println(">> Assert author page, content and status code")
-        val entity = restTemplate.getForEntity<String>("/author/pm1")
+        logger.info(">> Assert author page, content and status code")
+        val entity = restTemplate.getForEntity<String>("/author/ae")
         assertThat(entity.statusCode).isEqualTo(HttpStatus.OK)
-        assertThat(entity.body).contains("pierrick", "MARIE", "A jedi!")
+        assertThat(entity.body).contains("<title>Annie</title>", "<h2>Annie EASLEY</h2>", """<p>She is well known for being one of the famous women in technology for encouraging women and people of her colour to study and enter STEM fields.</p>""")
     }
 
     @Test
     fun `Assert authors page, content and status code`() {
-        println(">> Assert authors page, content and status code")
+        logger.info(">> Assert authors page, content and status code")
         val entity = restTemplate.getForEntity<String>("/authors")
         assertThat(entity.statusCode).isEqualTo(HttpStatus.OK)
-        assertThat(entity.body).contains("Authors", "pierrick", "peter")
+        assertThat(entity.body).contains("<title>Authors</title>", "<h2>Annie EASLEY</h2>", "<h2>Mary KELLER</h2>")
     }
 
     @AfterAll
