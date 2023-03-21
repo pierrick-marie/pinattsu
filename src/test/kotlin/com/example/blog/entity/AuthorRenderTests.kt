@@ -3,35 +3,35 @@ package com.example.blog.entity
 import com.example.blog.entity.render.apiRender
 import com.example.blog.entity.render.webRender
 import org.junit.jupiter.api.Test
-import org.springframework.boot.test.context.SpringBootTest
 import org.assertj.core.api.Assertions.assertThat
+import org.springframework.test.context.ActiveProfiles
 
-@SpringBootTest
+@ActiveProfiles("test")
 class AuthorRenderTests {
 
-	val juergen = Author(
-		login = "juergen",
-		firstName = "Junior",
-		lastName = "Da Silva",
+	val annie = Author(
+		login = "ae",
+		firstName = "Annie",
+		lastName = "Easley",
 	)
 
 	@Test
 	fun `Test web render author`() {
 
-		val webRenderedJuergen = juergen.webRender()
-		assertThat(webRenderedJuergen.login).isEqualTo(juergen.login)
-		assertThat(webRenderedJuergen.firstName).isEqualTo(juergen.firstName)
-		assertThat(webRenderedJuergen.lastName).isEqualTo(juergen.lastName.uppercase())
+		val webRenderedJuergen = annie.webRender()
+		assertThat(webRenderedJuergen.login).isEqualTo(annie.login)
+		assertThat(webRenderedJuergen.firstName).isEqualTo(annie.firstName)
+		assertThat(webRenderedJuergen.lastName).isEqualTo(annie.lastName.uppercase())
 		assertThat(webRenderedJuergen.description).isEqualTo("Default description")
 	}
 
 	@Test
 	fun `Test REST API render author`() {
 
-		val apiRenderedJuergen = juergen.apiRender()
-		assertThat(apiRenderedJuergen.login).isEqualTo(juergen.login)
-		assertThat(apiRenderedJuergen.firstName).isEqualTo(juergen.firstName)
-		assertThat(apiRenderedJuergen.lastName).isEqualTo(juergen.lastName.uppercase())
+		val apiRenderedJuergen = annie.apiRender()
+		assertThat(apiRenderedJuergen.login).isEqualTo(annie.login)
+		assertThat(apiRenderedJuergen.firstName).isEqualTo(annie.firstName)
+		assertThat(apiRenderedJuergen.lastName).isEqualTo(annie.lastName.uppercase())
 		assertThat(apiRenderedJuergen.description).isEqualTo("Default description")
 	}
 }
