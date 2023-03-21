@@ -10,7 +10,6 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories
 import org.springframework.security.provisioning.InMemoryUserDetailsManager
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher
-import org.springframework.web.reactive.config.CorsRegistry
 
 @Configuration
 @EnableWebSecurity
@@ -21,11 +20,13 @@ class SecurityConfiguration {
 	fun filterChain(http: HttpSecurity): SecurityFilterChain? {
 		// Add cors to secure REST API requests
 		http.cors().and()
+			.csrf().disable()
 			.authorizeHttpRequests { request ->
 				request
 					.requestMatchers("/admin").hasRole("ADMIN")
 					.requestMatchers("/secure").hasRole("USER")
-					.anyRequest().permitAll()
+					.anyRequest()
+					.permitAll()
 			}
 			.formLogin { login ->
 				login
