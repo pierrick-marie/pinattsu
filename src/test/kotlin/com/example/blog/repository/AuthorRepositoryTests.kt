@@ -1,7 +1,6 @@
-package com.example.blog.reposotory
+package com.example.blog.repository
 
 import com.example.blog.entity.Author
-import com.example.blog.repository.AuthorRepository
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -17,7 +16,7 @@ class AuthorRepositoryTests @Autowired constructor(
 	val authorRepository: AuthorRepository,
 ) {
 
-	private val juergen = Author("springjuergen", "Juergen", "Hoeller")
+	private val juergen = Author("ae", "Annie", "Easley")
 
 	@BeforeEach
 	fun init() {
