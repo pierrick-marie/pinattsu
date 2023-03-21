@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType
+import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
@@ -14,29 +15,30 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
+@ActiveProfiles("test")
 class AuthorRestTests @Autowired constructor(val mockMvc: MockMvc) {
 
 	@Test
 	fun `run ordered tests`() {
 		`Get first author by login`()
 		`Get all authors`()
-		`Post new author`()
-		`Get all authors with new`()
-		`Delete first author by login`()
-		`Update last author`()
+		`Post new author Katherine Johnson`()
+		`Get all authors included Katherine`()
+		`Delete Annie by her login`()
+		`Update Katherine`()
 	}
 
 	fun `Get first author by login`() {
 		mockMvc.perform(
-			get("/api/author/pm1").accept(MediaType.APPLICATION_JSON)
+			get("/api/author/ae").accept(MediaType.APPLICATION_JSON)
 		).andExpect(status().isOk)
 			.andExpect(content().contentType(MediaType.APPLICATION_JSON))
-			.andExpect(jsonPath("\$.login").value("pm1"))
-			.andExpect(jsonPath("\$.firstName").value("pierrick"))
-			.andExpect(jsonPath("\$.lastName").value("marie"))
+			.andExpect(jsonPath("\$.login").value("ae"))
+			.andExpect(jsonPath("\$.firstName").value("Annie"))
+			.andExpect(jsonPath("\$.lastName").value("Easley"))
 
 		mockMvc.perform(
-			get("/api/author/pm3").accept(MediaType.APPLICATION_JSON)
+			get("/api/author/login-does-not-exist").accept(MediaType.APPLICATION_JSON)
 		).andExpect(status().isNotFound)
 	}
 
@@ -45,92 +47,85 @@ class AuthorRestTests @Autowired constructor(val mockMvc: MockMvc) {
 			get("/api/author").accept(MediaType.APPLICATION_JSON)
 		).andExpect(status().isOk)
 			.andExpect(content().contentType(MediaType.APPLICATION_JSON))
-			.andExpect(jsonPath("\$.[0].login").value("pm1"))
-			.andExpect(jsonPath("\$.[1].login").value("pm2"))
+			.andExpect(jsonPath("\$.[0].login").value("ae"))
+			.andExpect(jsonPath("\$.[1].login").value("mk"))
 	}
 
-	fun `Post new author`() {
+	fun `Post new author Katherine Johnson`() {
 		this.mockMvc.perform(
 			post("/api/author")
-				.content("{\"login\": \"pm3\",\"firstName\": \"first3\",\"lastName\": \"last3\"}")
+				.content("{\"login\": \"kj\",\"firstName\": \"Katherine\",\"lastName\": \"Johnson\"}")
 				.contentType(MediaType.APPLICATION_JSON)
 		).andExpect(status().isCreated)
 			.andExpect(content().contentType(MediaType.APPLICATION_JSON))
-			.andExpect(jsonPath("$.login").value("pm3"))
-			.andExpect(jsonPath("$.firstName").value("first3"))
-			.andExpect(jsonPath("$.lastName").value("last3"))
+			.andExpect(jsonPath("$.login").value("kj"))
+			.andExpect(jsonPath("$.firstName").value("Katherine"))
+			.andExpect(jsonPath("$.lastName").value("Johnson"))
 
 		this.mockMvc.perform(
 			post("/api/author")
-				.content("{\"login\": \"pm3\",\"firstName\": \"first3\",\"lastName\": \"last3\"}")
+				.content("{\"login\": \"kj\",\"firstName\": \"Katherine\",\"lastName\": \"Johnson\"}")
 				.contentType(MediaType.APPLICATION_JSON)
 		).andExpect(status().isInternalServerError)
 	}
 
-	fun `Get all authors with new`() {
+	fun `Get all authors included Katherine`() {
 		mockMvc.perform(
 			get("/api/author").accept(MediaType.APPLICATION_JSON)
 		).andExpect(status().isOk)
 			.andExpect(content().contentType(MediaType.APPLICATION_JSON))
-			.andExpect(jsonPath("\$.[0].login").value("pm1"))
-			.andExpect(jsonPath("\$.[1].login").value("pm2"))
-			.andExpect(jsonPath("\$.[2].login").value("pm3"))
+			.andExpect(jsonPath("\$.[0].login").value("ae"))
+			.andExpect(jsonPath("\$.[1].login").value("mk"))
+			.andExpect(jsonPath("\$.[2].login").value("kj"))
 	}
 
-	fun `Delete first author by login`() {
-		// There are three articles in database. The two first are written by pm1
+	fun `Delete Annie by her login`() {
 		mockMvc.perform(
 			get("/api/article").accept(MediaType.APPLICATION_JSON)
 		).andExpect(status().isOk)
 			.andExpect(content().contentType(MediaType.APPLICATION_JSON))
-			.andExpect(jsonPath("\$.[0]author.login").value("pm1"))
-			.andExpect(jsonPath("\$.[1]author.login").value("pm1"))
-			.andExpect(jsonPath("\$.[2]author.login").value("pm2"))
+			.andExpect(jsonPath("\$.[0]author.login").value("ae"))
+			.andExpect(jsonPath("\$.[1]author.login").value("ae"))
+			.andExpect(jsonPath("\$.[2]author.login").value("mk"))
 
-		// Delete pm1
+		// Delete Annie
 		mockMvc.perform(
-			delete("/api/author/pm1").accept(MediaType.APPLICATION_JSON)
+			delete("/api/author/ae").accept(MediaType.APPLICATION_JSON)
 		).andExpect(status().isOk)
 
-		// There are pm2 and pm3 in database
+		// There are still Mary and Katherine in database
 		mockMvc.perform(
 			get("/api/author").accept(MediaType.APPLICATION_JSON)
 		).andExpect(status().isOk)
 			.andExpect(content().contentType(MediaType.APPLICATION_JSON))
-			.andExpect(jsonPath("\$.[0].login").value("pm2"))
-			.andExpect(jsonPath("\$.[1].login").value("pm3"))
+			.andExpect(jsonPath("\$.[0].login").value("mk"))
+			.andExpect(jsonPath("\$.[1].login").value("kj"))
 
-		// The two first articles from pm1 have been deleted
+		// The two articles of Annie have been removed
 		mockMvc.perform(
 			get("/api/article").accept(MediaType.APPLICATION_JSON)
 		).andExpect(status().isOk)
 			.andExpect(content().contentType(MediaType.APPLICATION_JSON))
-			.andExpect(jsonPath("\$.[0]author.login").value("pm2"))
+			.andExpect(jsonPath("\$.[0]author.login").value("mk"))
 	}
 
-	fun `Update last author`() {
+	fun `Update Katherine`() {
 		this.mockMvc.perform(
-			MockMvcRequestBuilders.put("/api/author/pm3")
-				.content("{\"login\": \"pm4\",\"firstName\": \"F4\",\"lastName\": \"L4\"}")
+			MockMvcRequestBuilders.put("/api/author/kj")
+				.content("{\"login\": \"rp\",\"firstName\": \"Radia\",\"lastName\": \"Perlman\"}")
 				.contentType(MediaType.APPLICATION_JSON)
 		).andExpect(status().isOk)
 			.andExpect(content().contentType(MediaType.APPLICATION_JSON))
-			.andExpect(jsonPath("$.login").value("pm4"))
-			.andExpect(jsonPath("$.firstName").value("F4"))
-			.andExpect(jsonPath("$.lastName").value("L4"))
+			.andExpect(jsonPath("$.login").value("rp"))
+			.andExpect(jsonPath("$.firstName").value("Radia"))
+			.andExpect(jsonPath("$.lastName").value("Perlman"))
 
 		mockMvc.perform(
 			get("/api/author").accept(MediaType.APPLICATION_JSON)
 		).andExpect(status().isOk)
 			.andExpect(content().contentType(MediaType.APPLICATION_JSON))
-			.andExpect(jsonPath("\$.[0].login").value("pm2"))
-			.andExpect(jsonPath("\$.[1].login").value("pm4"))
-			.andExpect(jsonPath("\$.[1].firstName").value("F4"))
-
-		this.mockMvc.perform(
-			MockMvcRequestBuilders.put("/api/author/XXXX")
-				.content("{\"login\": \"pm4\",\"firstName\": \"F4\",\"lastName\": \"L4\"}")
-				.contentType(MediaType.APPLICATION_JSON)
-		).andExpect(status().isNotFound)
+			.andExpect(jsonPath("\$.[0].login").value("mk"))
+			.andExpect(jsonPath("\$.[1].login").value("rp"))
+			.andExpect(jsonPath("\$.[1].firstName").value("Radia"))
 	}
 }
