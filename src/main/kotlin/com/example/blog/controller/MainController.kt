@@ -10,9 +10,7 @@ import org.springframework.ui.set
 import org.springframework.web.bind.annotation.GetMapping
 
 @Controller
-class MainController(
-	private val authorRepository: AuthorRepository,
-	private val properties: BlogProperties) {
+class MainController(private val properties: BlogProperties) {
 
 	private val logger: Logger = LogManager.getLogger(MainController::class.java)
 
