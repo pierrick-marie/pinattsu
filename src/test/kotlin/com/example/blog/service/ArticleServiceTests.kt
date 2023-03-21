@@ -4,7 +4,6 @@ import com.example.blog.entity.Article
 import com.example.blog.entity.Author
 import com.example.blog.repository.ArticleRepository
 import com.example.blog.repository.AuthorRepository
-import com.ninjasquad.springmockk.clear
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import org.assertj.core.api.Assertions.assertThat
@@ -16,11 +15,13 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager
 import org.springframework.http.HttpStatus
+import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import org.springframework.web.server.ResponseStatusException
 
 @ExtendWith(SpringExtension::class)
 @DataJpaTest
+@ActiveProfiles("test")
 class ArticleServiceTests @Autowired constructor(
 	val entityManager: TestEntityManager,
 	val authorRepository: AuthorRepository,
@@ -32,20 +33,24 @@ class ArticleServiceTests @Autowired constructor(
 	private val authorService = AuthorService(authorRepository)
 	private val articleService = ArticleService(articleRepository, authorService)
 
-	private val juergen = Author("springjuergen", "Juergen", "Hoeller")
-	private val peter = Author("peter", "Peter", "M.")
+	private val annie = Author("ae", "Annie", "Easley")
+	private val mary = Author("mk", "Mary", "Keller")
 
-	private val primeArticle = Article(
-		title = "Test title 0",
-		content ="Test content 0",
+	private val biographyOfAnnie = Article(
+		title = "Annies's Biography",
+		content = """
+			Annie was born in 1933 in Birmingham Alabama, and died in 2011. She attended Xavier University where she majored in pharmacy for around 2 years. Shortly after finishing University, she met her husband and they moved to Cleveland. This is where Annie’s life changed for the better. As there was no pharmaceutical school nearby, she applied for a job at the National Advisory Committee for Aeronautics (NACA) and within 2 weeks had started working there. She was one of four African Americans who worked there and developed and implemented code which led to the development of the batteries used in hybrid cars. She is well known for being one of the famous women in technology for encouraging women and people of her colour to study and enter STEM fields.
+		""".trimIndent(),
 		date = "2022-12-01",
-		author = juergen)
+		author = annie)
 
-	private val secondArticle = Article(
-		title = "Test title 1",
-		content ="Test content 1",
+	private val biographyOfMary = Article(
+		title = "Mary's Biography",
+		content = """
+			Mary Keller, an American Roman Catholic religious sister, was born in 1913 and died in 1985. In 1958 she started at the National Science Foundation workshop in the computer science department at Dartmouth College which at the time was an all-male school. She teamed up with 2 other scientists to develop the BASIC computer programming language. In 1965 Mary earned her PH.D in computer science from the University of Michigan. She went on to develop a computer science department in a catholic college for women called Clarke College. For 20 years she chaired the department where she was an advocate for women in computer science, and supported working mothers by encouraging them to bring their babies to class with them. She is known as one of the famous women in technology for being the first woman to receive a PH.D in computer science, and Clarke University (Clarke College) have established the Mary Keller Computer Science Scholarship in her honour.
+		""".trimIndent(),
 		date = "2022-12-02",
-		author = peter)
+		author = mary)
 
 	@BeforeEach
 	fun init() {
@@ -53,10 +58,10 @@ class ArticleServiceTests @Autowired constructor(
 		authorRepository.deleteAll()
 		articleRepository.deleteAll()
 
-		authorRepository.save(juergen)
-		authorRepository.save(peter)
-		articleRepository.save(primeArticle)
-		articleRepository.save(secondArticle)
+		authorRepository.save(annie)
+		authorRepository.save(mary)
+		articleRepository.save(biographyOfAnnie)
+		articleRepository.save(biographyOfMary)
 
 		entityManager.flush()
 		entityManager.clear()
@@ -68,16 +73,16 @@ class ArticleServiceTests @Autowired constructor(
 		val testedArticles = articleService.getAll()
 
 		assertThat(testedArticles).hasSize(2)
-		assertThat(testedArticles).contains(primeArticle)
-		assertThat(testedArticles).contains(secondArticle)
+		assertThat(testedArticles).contains(biographyOfAnnie)
+		assertThat(testedArticles).contains(biographyOfMary)
 	}
 
 	@Test
 	fun `Test get prime article by id`() {
 
-		val testedArticle = primeArticle.id?.let { articleService.getById(it) }
+		val testedArticle = biographyOfAnnie.id?.let { articleService.getById(it) }
 
-		assertThat(testedArticle).isEqualTo(primeArticle)
+		assertThat(testedArticle).isEqualTo(biographyOfAnnie)
 
 		try {
 			articleService.getById(-1)
@@ -92,14 +97,14 @@ class ArticleServiceTests @Autowired constructor(
 	@Test
 	fun `Test create new article`() {
 
-		val testedArticle = Article(
-			title = "New tested article",
-			content ="Exclusive content",
+		val newBiographyOfMary = Article(
+			title = "New biography of Mary",
+			content ="She was a wonderful woman!",
 			date = "2022-12-03",
-			author = peter)
+			author = mary)
 
-		val newArticle = articleService.create(testedArticle)
-		assertThat(newArticle.title).isEqualTo(testedArticle.title)
+		val newArticle = articleService.create(newBiographyOfMary)
+		assertThat(newArticle.title).isEqualTo(newBiographyOfMary.title)
 
 		val allArticles = articleService.getAll()
 		assertThat(allArticles).hasSize(3)
@@ -111,10 +116,10 @@ class ArticleServiceTests @Autowired constructor(
 
 		assertThat(articleService.getAll()).hasSize(2)
 
-		primeArticle.id?.let {articleService.removeById(it)}
+		biographyOfAnnie.id?.let {articleService.removeById(it)}
 
 		assertThat(articleService.getAll()).hasSize(1)
-		assertThat(articleService.getAll()).contains(secondArticle)
+		assertThat(articleService.getAll()).contains(biographyOfMary)
 
 		try {
 			articleService.removeById(-1)
@@ -131,7 +136,7 @@ class ArticleServiceTests @Autowired constructor(
 		assertThat(articleService.getAll()).hasSize(2)
 		assertThat(authorService.getAll()).hasSize(2)
 
-		juergen.id?.let { authorService.remove(it) }
+		annie.id?.let { authorService.remove(it) }
 
 		entityManager.flush()
 		entityManager.clear()
@@ -142,35 +147,35 @@ class ArticleServiceTests @Autowired constructor(
 
 	@Test
 	fun `Test get article by date`() {
-		val articles = articleService.getByDate(primeArticle.date)
+		val articles = articleService.getByDate(biographyOfAnnie.date)
 
 		assertThat(articles).hasSize(1)
-		assertThat(articles).contains(primeArticle)
+		assertThat(articles).contains(biographyOfAnnie)
 	}
 
 	@Test
 	fun `Test get article by author Juergen`() {
-		val articles = articleService.getByAuthor(juergen)
+		val articles = articleService.getByAuthor(annie)
 
 		assertThat(articles).hasSize(1)
-		assertThat(articles).contains(primeArticle)
+		assertThat(articles).contains(biographyOfAnnie)
 	}
 
 	@Test
 	fun `Test create article with unknown author`() {
-		val testedAuthor = Author(
-			login = "Unknown",
-			firstName = "F.",
-			lastName = "L."
+		val katherine = Author(
+			login = "kj",
+			firstName = "Katherine",
+			lastName = "Johnson"
 		)
-		val testedArticle = Article(
-			title = "New tested article",
-			content ="Exclusive content",
+		val biographyOfKatherine = Article(
+			title = "Katherine's Biography",
+			content ="She was one of 3 black students to attend West Virginia’s graduate college...",
 			date = "2022-12-03",
-			author = testedAuthor)
+			author = katherine)
 
 		try {
-			articleService.create(testedArticle)
+			articleService.create(biographyOfKatherine)
 			fail("Exception not triggered")
 		} catch (e: ResponseStatusException) {
 			assertThat(e.statusCode).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -182,18 +187,18 @@ class ArticleServiceTests @Autowired constructor(
 	@Test
 	fun `Test update prime article by its id`() {
 
-		var updatedArticle = primeArticle
+		var newBiographyOfAnnie = biographyOfAnnie
 
-		updatedArticle.title = "Updated title"
-		updatedArticle.content = "Exclusive content"
+		newBiographyOfAnnie.title = "Updated biography of Annie"
+		newBiographyOfAnnie.content = "She was a wonderful woman!"
 
-		val result = primeArticle.id?.let { articleService.updateById(it, updatedArticle) }
+		val result = biographyOfAnnie.id?.let { articleService.updateById(it, newBiographyOfAnnie) }
 
 		assertThat(articleService.getAll()).hasSize(2)
-		assertThat(result).isEqualTo(updatedArticle)
+		assertThat(result).isEqualTo(newBiographyOfAnnie)
 
 		try {
-			articleService.updateById(-1, updatedArticle)
+			articleService.updateById(-1, newBiographyOfAnnie)
 			fail("Exception not triggered")
 		} catch (e: ResponseStatusException) {
 			assertThat(e.statusCode).isEqualTo(HttpStatus.NOT_FOUND)

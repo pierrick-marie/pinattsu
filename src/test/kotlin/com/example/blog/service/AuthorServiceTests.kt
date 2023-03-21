@@ -9,15 +9,16 @@ import org.assertj.core.api.Assertions.fail
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
-import org.junit.jupiter.api.fail
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager
 import org.springframework.http.HttpStatus
+import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import org.springframework.web.server.ResponseStatusException
 @ExtendWith(SpringExtension::class)
 @DataJpaTest
+@ActiveProfiles("test")
 class AuthorServiceTests @Autowired constructor(
 	val entityManager: TestEntityManager,
 	val authorRepository: AuthorRepository,
@@ -26,16 +27,16 @@ class AuthorServiceTests @Autowired constructor(
 	private val logger: Logger = LogManager.getLogger(AuthorServiceTests::class.java)
 
 	private val authorService = AuthorService(authorRepository)
-	private val juergen = Author("springjuergen", "Juergen", "Hoeller")
-	private val peter = Author("peter", "Peter", "M.")
+	private val annie = Author("ae", "Annie", "Easley")
+	private val mary = Author("mk", "Mary", "Keller")
 
 	@BeforeEach
 	fun init() {
 
 		authorRepository.deleteAll()
 
-		authorRepository.save(juergen)
-		authorRepository.save(peter)
+		authorRepository.save(annie)
+		authorRepository.save(mary)
 
 		entityManager.flush()
 		entityManager.clear()
@@ -47,16 +48,16 @@ class AuthorServiceTests @Autowired constructor(
 		val testedAuthors = authorService.getAll()
 
 		assertThat(testedAuthors).hasSize(2)
-		assertThat(testedAuthors).contains(juergen)
-		assertThat(testedAuthors).contains(peter)
+		assertThat(testedAuthors).contains(annie)
+		assertThat(testedAuthors).contains(mary)
 	}
 
 	@Test
 	fun `Test get Juergen by id`() {
 
-		val testedAuthor = juergen.id?.let { authorService.getById(it) }
+		val testedAuthor = annie.id?.let { authorService.getById(it) }
 
-		assertThat(testedAuthor).isEqualTo(juergen)
+		assertThat(testedAuthor).isEqualTo(annie)
 
 		try {
 			authorService.getById(-1)
@@ -71,9 +72,9 @@ class AuthorServiceTests @Autowired constructor(
 	@Test
 	fun `Test get Juergen by login`() {
 
-		val testedAuthor = authorService.getByLogin(juergen.login)
+		val testedAuthor = authorService.getByLogin(annie.login)
 
-		assertThat(testedAuthor).isEqualTo(juergen)
+		assertThat(testedAuthor).isEqualTo(annie)
 
 		try {
 			authorService.getByLogin("failed login")
@@ -90,18 +91,18 @@ class AuthorServiceTests @Autowired constructor(
 
 		assertThat(authorService.getAll()).hasSize(2)
 
-		val newAuthor = Author("new login", "test firstname", "test lastname")
-		val result = authorService.create(newAuthor)
+		val radia = Author("rp", "Radia", "Perlman")
+		val result = authorService.create(radia)
 		entityManager.flush()
 		entityManager.clear()
 
 		assertThat(authorService.getAll()).hasSize(3)
-		assertThat(authorService.getByLogin(newAuthor.login)).isEqualTo(newAuthor)
-		assertThat(result).isEqualTo(newAuthor)
+		assertThat(authorService.getByLogin(radia.login)).isEqualTo(radia)
+		assertThat(result).isEqualTo(radia)
 
 		try {
-			val newAuthorBis = Author("new login", "test firstname", "test lastname")
-			authorService.create(newAuthorBis)
+			val radiaBis = Author(radia.login, radia.firstName, radia.lastName)
+			authorService.create(radiaBis)
 			entityManager.flush()
 			entityManager.clear()
 			fail("Insert same author twice")
@@ -117,7 +118,7 @@ class AuthorServiceTests @Autowired constructor(
 
 		assertThat(authorService.getAll()).hasSize(2)
 
-		juergen.id?.let { authorService.remove(it) }
+		annie.id?.let { authorService.remove(it) }
 
 		try {
 			authorService.remove(-1)
@@ -129,7 +130,7 @@ class AuthorServiceTests @Autowired constructor(
 		}
 
 		assertThat(authorService.getAll()).hasSize(1)
-		assertThat(authorService.getAll()).contains(peter)
+		assertThat(authorService.getAll()).contains(mary)
 	}
 
 	@Test
@@ -137,7 +138,7 @@ class AuthorServiceTests @Autowired constructor(
 
 		assertThat(authorService.getAll()).hasSize(2)
 
-		authorService.removeByLogin(juergen.login)
+		authorService.removeByLogin(annie.login)
 
 		try {
 			authorService.removeByLogin("failed login")
@@ -149,26 +150,26 @@ class AuthorServiceTests @Autowired constructor(
 		}
 
 		assertThat(authorService.getAll()).hasSize(1)
-		assertThat(authorService.getAll()).contains(peter)
+		assertThat(authorService.getAll()).contains(mary)
 	}
 
 	@Test
 	fun `Test update Juergen by its id`() {
 
-		var updatedJuergen = juergen
+		var updatedAnnie = annie
 
-		updatedJuergen.login = "updated login"
-		updatedJuergen.firstName = "updated firstname"
-		updatedJuergen.lastName = "updated lastname"
+		updatedAnnie.login = "ef"
+		updatedAnnie.firstName = "Elizabeth"
+		updatedAnnie.lastName = "Feinler"
 
-		val result = updatedJuergen.id?.let { authorService.update(it, updatedJuergen) }
+		val result = updatedAnnie.id?.let { authorService.update(it, updatedAnnie) }
 
 		assertThat(authorService.getAll()).hasSize(2)
-		assertThat(authorService.getByLogin(updatedJuergen.login)).isEqualTo(updatedJuergen)
-		assertThat(result?.login).isEqualTo(updatedJuergen.login)
+		assertThat(authorService.getByLogin(updatedAnnie.login)).isEqualTo(updatedAnnie)
+		assertThat(result?.login).isEqualTo(updatedAnnie.login)
 
 		try {
-			authorService.update(-1, updatedJuergen)
+			authorService.update(-1, updatedAnnie)
 			fail("Exception not triggered")
 		} catch (e: ResponseStatusException) {
 			assertThat(e.statusCode).isEqualTo(HttpStatus.NOT_FOUND)
@@ -180,19 +181,19 @@ class AuthorServiceTests @Autowired constructor(
 	@Test
 	fun `Test update Juergen by its login`() {
 
-		val updatedJuergen = Author(
-			login = "updated login",
-			firstName = "updated firstname",
-			lastName = "updated lastname")
+		val updatedAnnie = Author(
+			login = "kj",
+			firstName = "Katherine",
+			lastName = "Johnson")
 
-		val result = authorService.updateByLogin(juergen.login, updatedJuergen)
+		val result = authorService.updateByLogin(annie.login, updatedAnnie)
 
 		assertThat(authorService.getAll()).hasSize(2)
-		assertThat(authorService.getByLogin(updatedJuergen.login)).isEqualTo(updatedJuergen)
-		assertThat(result).isEqualTo(updatedJuergen)
+		assertThat(authorService.getByLogin(updatedAnnie.login)).isEqualTo(updatedAnnie)
+		assertThat(result).isEqualTo(updatedAnnie)
 
 		try {
-			authorService.update(-1, updatedJuergen)
+			authorService.update(-1, updatedAnnie)
 			fail("Exception not triggered")
 		} catch (e: ResponseStatusException) {
 			assertThat(e.statusCode).isEqualTo(HttpStatus.NOT_FOUND)
