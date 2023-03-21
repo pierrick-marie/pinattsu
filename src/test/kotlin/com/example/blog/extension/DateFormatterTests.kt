@@ -1,24 +1,22 @@
 package com.example.blog.extension
 
-import org.apache.logging.log4j.LogManager
-import org.apache.logging.log4j.Logger
 import org.junit.jupiter.api.Test
-import org.springframework.boot.test.context.SpringBootTest
 import java.time.LocalDateTime
 import org.assertj.core.api.Assertions.assertThat
+import org.springframework.test.context.ActiveProfiles
 
-
-@SpringBootTest
+@ActiveProfiles("test")
 class DateFormatterTests {
-
-	private val logger: Logger = LogManager.getLogger(DateFormatterTests::class.java)
 
 	@Test
 	fun formatTest() {
 		val date = LocalDateTime.now()
 
 		val year = date.year
-		val month = date.monthValue
+		var month = "${date.monthValue}";
+		if (date.monthValue < 10) {
+			month = "0${month}"
+		}
 		val day = date.dayOfMonth
 
 		assertThat(date.format()).isEqualTo("${year}-${month}-${day}")
