@@ -2,8 +2,6 @@ package com.example.blog.repository
 
 import com.example.blog.entity.Article
 import com.example.blog.entity.Author
-import org.apache.logging.log4j.LogManager
-import org.apache.logging.log4j.Logger
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -19,30 +17,29 @@ class ArticleRepositoryTests @Autowired constructor(
 	val articleRepository: ArticleRepository,
 	val authorRepository: AuthorRepository,
 ) {
-	private val logger: Logger = LogManager.getLogger(ArticleRepositoryTests::class.java)
 
-	private val juergen = Author("ae", "Annie", "Easley")
-	private val peter = Author("mk", "Mary", "Keller")
+	private val annie = Author("ae", "Annie", "Easley")
+	private val mary = Author("mk", "Mary", "Keller")
 
 	private val primeArticle = Article(
 		title = "Test title 0",
 		content ="Test content 0",
 		date = "2022-12-01",
-		author = juergen)
+		author = annie)
 
 	private val secondArticle = Article(
 		title = "Test title 1",
 		content ="Test content 1",
 		date = "2022-12-02",
-		author = peter)
+		author = mary)
 
 	@BeforeEach
 	fun init() {
 		authorRepository.deleteAll()
 		articleRepository.deleteAll()
 
-		authorRepository.save(juergen)
-		authorRepository.save(peter)
+		authorRepository.save(annie)
+		authorRepository.save(mary)
 		articleRepository.save(primeArticle)
 		articleRepository.save(secondArticle)
 
@@ -59,7 +56,7 @@ class ArticleRepositoryTests @Autowired constructor(
 		assertThat(articles).hasSize(2)
 		assertThat(authors).hasSize(2)
 
-		juergen.id?.let {authorRepository.deleteById(it) }
+		annie.id?.let {authorRepository.deleteById(it) }
 		entityManager.flush()
 		entityManager.clear()
 
@@ -73,7 +70,7 @@ class ArticleRepositoryTests @Autowired constructor(
 	@Test
 	fun `When findByLogin then return Articles`() {
 
-		val testedArticles = articleRepository.findByAuthor(juergen)
+		val testedArticles = articleRepository.findByAuthor(annie)
 
 		assertThat(testedArticles).hasSize(1)
 		assertThat(testedArticles.get(0).id).isEqualTo(primeArticle.id)
