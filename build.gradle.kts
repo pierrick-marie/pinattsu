@@ -48,12 +48,12 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-devtools")
 	implementation("org.mariadb.jdbc:mariadb-java-client")
 
-	runtimeOnly("com.h2database:h2")
-
+	testImplementation("com.h2database:h2")
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {
 		exclude(module = "junit")
 		exclude(module = "mockito-core")
 	}
+	testImplementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	testImplementation("com.ninja-squad:springmockk:4.0.0")
 	testImplementation("org.junit.jupiter:junit-jupiter-api")
 	testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
