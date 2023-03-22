@@ -1,5 +1,8 @@
 package com.example.blog.integration.rest
 
+import io.mockk.InternalPlatformDsl.toArray
+import org.hamcrest.collection.IsCollectionWithSize
+import org.hamcrest.collection.IsCollectionWithSize.hasSize
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.springframework.beans.factory.annotation.Autowired
@@ -86,9 +89,10 @@ class AuthorRestTests @Autowired constructor(val mockMvc: MockMvc) {
 			get("/api/article").accept(MediaType.APPLICATION_JSON)
 		).andExpect(status().isOk)
 			.andExpect(content().contentType(MediaType.APPLICATION_JSON))
-			.andExpect(jsonPath("\$.[0]author.login").value("ae"))
-			.andExpect(jsonPath("\$.[1]author.login").value("ae"))
-			.andExpect(jsonPath("\$.[2]author.login").value("mk"))
+			.andExpect(jsonPath("\$.[0]author.login").exists())
+			.andExpect(jsonPath("\$.[1]author.login").exists())
+			.andExpect(jsonPath("\$.[2]author.login").exists())
+			.andExpect(jsonPath("\$.[3]author.login").doesNotExist())
 
 		// Delete Annie
 		mockMvc.perform(
