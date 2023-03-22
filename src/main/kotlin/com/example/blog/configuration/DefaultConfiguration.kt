@@ -37,6 +37,7 @@ class DefaultConfiguration {
 				content = """
 					Annie was born in 1933 in Birmingham Alabama, and died in 2011. She attended Xavier University where she majored in pharmacy for around 2 years. Shortly after finishing University, she met her husband and they moved to Cleveland. This is where Annie’s life changed for the better. As there was no pharmaceutical school nearby, she applied for a job at the National Advisory Committee for Aeronautics (NACA) and within 2 weeks had started working there. She was one of four African Americans who worked there and developed and implemented code which led to the development of the batteries used in hybrid cars. She is well known for being one of the famous women in technology for encouraging women and people of her colour to study and enter STEM fields.
 				""".trimIndent(),
+				date = "2023-03-21",
 				author = ae,
 			)
 
@@ -56,6 +57,7 @@ class DefaultConfiguration {
 				content = """
 					Mary Keller, an American Roman Catholic religious sister, was born in 1913 and died in 1985. In 1958 she started at the National Science Foundation workshop in the computer science department at Dartmouth College which at the time was an all-male school. She teamed up with 2 other scientists to develop the BASIC computer programming language. In 1965 Mary earned her PH.D in computer science from the University of Michigan. She went on to develop a computer science department in a catholic college for women called Clarke College. For 20 years she chaired the department where she was an advocate for women in computer science, and supported working mothers by encouraging them to bring their babies to class with them. She is known as one of the famous women in technology for being the first woman to receive a PH.D in computer science, and Clarke University (Clarke College) have established the Mary Keller Computer Science Scholarship in her honour.
 				""".trimIndent(),
+				date = "2023-03-21",
 				author = mk,
 			)
 
