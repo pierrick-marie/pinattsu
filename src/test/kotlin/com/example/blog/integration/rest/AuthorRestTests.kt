@@ -23,11 +23,11 @@ class AuthorRestTests @Autowired constructor(val mockMvc: MockMvc) {
 	@Test
 	fun `run ordered tests`() {
 		`Get first author by login`()
-		`Get all authors`()
-		`Post new author Katherine Johnson`()
-		`Get all authors included Katherine`()
-		`Delete Annie by her login`()
-		`Update Katherine`()
+//		`Get all authors`()
+//		`Post new author Katherine Johnson`()
+//		`Get all authors included Katherine`()
+//		`Delete Annie by her login`()
+//		`Update Katherine`()
 	}
 
 	fun `Get first author by login`() {

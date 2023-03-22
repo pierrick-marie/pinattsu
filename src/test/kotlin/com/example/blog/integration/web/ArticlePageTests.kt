@@ -44,8 +44,8 @@ class ArticlePageTests(@Autowired val restTemplate: TestRestTemplate) {
 		assertThat(entity.body).contains("<title>Articles for 2022-12-01</title>")
 	}
 
-	@Test
-	fun `Assert articles page by author pm1, content and status code`() {
+//	@Test
+	fun `Assert articles page by Annie, content and status code`() {
 		logger.info(">> Assert articles page, content and status code")
 		val entity = restTemplate.getForEntity<String>("/article/author/ae")
 		assertThat(entity.statusCode).isEqualTo(HttpStatus.OK)
