@@ -60,10 +60,10 @@ class ArticleService(val articleRepository: ArticleRepository, val authorService
 
 		article.title = articleData.title
 		article.content = articleData.content
-		articleData.date?.let { article.date = it }
+		articleData.date.let { article.date = it }
 
 		articleData.author?.let {
-			authorService.getByLogin(it.login)?.let {
+			authorService.getByLogin(it.login).let {
 				article.author = it
 			}
 		}
