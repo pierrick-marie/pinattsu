@@ -1,4 +1,4 @@
 FROM eclipse-temurin:17.0.6_10-jre
 RUN mkdir /opt/app
-COPY ./build/libs/blog-0.0.1.jar /opt/app/spring-app.jar
-CMD ["java", "-jar", "/opt/app/spring-app.jar"]
+COPY ./build/libs/pinattsu-rest-server-0.1.0.jar /opt/app/rest-server.jar
+CMD ["java", "-jar", "/opt/app/rest-server.jar"]

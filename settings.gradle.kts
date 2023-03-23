@@ -1,1 +1,1 @@
-rootProject.name = "blog"
+rootProject.name = "pinattsu-rest-server"

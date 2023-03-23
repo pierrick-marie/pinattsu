@@ -16,8 +16,8 @@ allOpen {
 	annotation("javax.persistence.MappedSuperclass")
 }
 
-group = "com.example"
-version = "0.0.1"
+group = "com.pinattsu"
+version = "0.1.0"
 java.sourceCompatibility = JavaVersion.VERSION_17
 
 configurations {
