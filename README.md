@@ -82,13 +82,13 @@ Start with SpringBoot: https://spring.io/guides/tutorials/spring-boot-kotlin/
 
 https://raw.githubusercontent.com/pierrick-marie/springboot-discovery/main/LICENSE
 
-# Auteur
+# Author
 
 Developer: Pierrick MARIE contact at pierrickmarie.info
 
 # Contribute
 
-DO not hesitate to send PL or contact me by mail.
+Do not hesitate to send PL or contact me by mail.
 
 # Badges
 
