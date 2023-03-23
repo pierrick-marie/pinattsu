@@ -29,7 +29,23 @@ This repository is dedicated to the REST API server with SpringBoot.
 
 1. connect to mariaDB database
 2. expose a REST API to manipulate database
-   3. Security: access control, CORS filter, CSRF protection
+3. Security: access control, CORS filter, CSRF protection
+
+# Docker image
+
+The docker image of that project is available from docker hub at this address: https://hub.docker.com/r/pimarie/pinattsu-rest-server
+
+You can run that image with the following command:
+
+```shell
+docker run --rm -e DB_URL={DATABASE_URL} -e DB_USER={DATABASE_USER} -e DB_PASSWORD={DATABASE_PASSWORD} --network {NETWORK} pimarie/pinattsu-rest-server
+```
+Where:
+
+* {DATABASE_URL} is the URL of the database
+* {DATABASE_USER} is the user name of the database
+* {DATABASE_PASSWORD} is the password to access to the database
+* {NETWORK} is the network use to reach the database
 
 # Documentation
 
