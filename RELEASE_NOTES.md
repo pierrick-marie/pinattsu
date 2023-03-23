@@ -1,6 +1,14 @@
 Release
 ==================================
 
+# Pinattsu: Version 0.1.0 
+
+I finally chose a name for the project: Pinattsu. it means peanuts in Japanese - I love peanuts!
+
+That version 0.1.0 is the first version of the project with that name.
+
+There is not new feature in that version.
+
 # First release: V0.0.1 test CI script
 
 This release is used to test the CI script installed on github.

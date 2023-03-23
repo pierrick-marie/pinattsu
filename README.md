@@ -1,40 +1,62 @@
-Construction d'une API Rest avec Spring boot & Kotlin
+Pinattsu REST API server
 ========================================
 
-# Objectifs
+This project is a part of Pinattsu project described here: https://github.com/users/pierrick-marie/projects/2
 
-1. Apprendre é développeur une API Rest avec SpringBoot, Kotlin et Gradle.
-2. Construire un client pour l'API avec React et Next.js
+# Introduction
+
+Pinattsu means "peanuts" in Japanese. It's the code name of my web blog project.
+
+## Why *Pinattsu*?
+
+Because I love peanuts so much and I like the music of the word "Pinattsu", prononce "Pinatzu".
+
+## Purpose
+
+Pinattsu aims to provide a web platform to publish blog posts.
+
+The project is divided in three parts:
+
+1. a database with MariaDB: https://github.com/pierrick-marie/pinattsu
+2. a REST API provided by SpringBoot with Kotlin and Gradle for backend (That repository)
+3. a web application with Next.js and React.js for frontend
+
+That three elements run is separate in three docker containers communicating through a docker virtual networks.
+
+This repository is dedicated to the REST API server with SpringBoot.
+
+# Features
+
+1. connect to mariaDB database
+2. expose a REST API to manipulate database
+   3. Security: access control, CORS filter, CSRF protection
 
 # Documentation
 
-Pour débuter avec SpringBoot : https://spring.io/guides/tutorials/spring-boot-kotlin/
+Start with SpringBoot: https://spring.io/guides/tutorials/spring-boot-kotlin/
 
-### Thymeleaf
+#### Thymeleaf
 
 * https://www.thymeleaf.org/doc/tutorials/3.1/thymeleafspring.pdf
 * https://www.thymeleaf.org/doc/articles/layouts.html
-
-**Using texts**
-
 * https://www.thymeleaf.org/doc/tutorials/3.0/usingthymeleaf.html#using-texts
 
-### HTTPS
+#### HTTPS
 
 * https://www.baeldung.com/spring-boot-https-self-signed-certificate
 
-### Application properties
+#### Application properties
 
 * https://www.baeldung.com/properties-with-spring
 * https://www.youtube.com/watch?v=PmGLn3ua_lU
 
-### Authentication
+#### Authentication
 
 * https://spring.io/guides/gs/securing-web/
 * https://www.baeldung.com/kotlin/spring-security-dsl
 * https://www.baeldung.com/spring-security-login
 
-### Ressources
+#### Others
 
 * https://spring.io/guides/tutorials/spring-security-and-angular-js/
 * https://www.baeldung.com/spring-boot-angular-web
@@ -44,21 +66,13 @@ Pour débuter avec SpringBoot : https://spring.io/guides/tutorials/spring-boot-k
 
 https://raw.githubusercontent.com/pierrick-marie/springboot-discovery/main/LICENSE
 
-# Features
-
-1. création des entités auteur et article consultables via un navigateur web
-2. création d'une API REST pour consulter et éditer articles et auteurs
-3. tests unitaires et intégration : 100%
-4. https
-5. mécanisme d'authentification et de contrôle d'accès
-
 # Auteur
 
-Developpeur: Pierrick MARIE contact at pierrickmarie.info
+Developer: Pierrick MARIE contact at pierrickmarie.info
 
-# Contribuer
+# Contribute
 
-N'hésitez pas à améliorer ce programme en envoyant des PR ou me contacter directement par mail.
+DO not hesitate to send PL or contact me by mail.
 
 # Badges
 
