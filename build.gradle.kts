@@ -16,8 +16,8 @@ allOpen {
 	annotation("javax.persistence.MappedSuperclass")
 }
 
-group = "com.example"
-version = "0.0.1-SNAPSHOT"
+group = "com.pinattsu"
+version = "0.1.0"
 java.sourceCompatibility = JavaVersion.VERSION_17
 
 configurations {
@@ -46,13 +46,14 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("org.springframework.boot:spring-boot-devtools")
+	implementation("org.mariadb.jdbc:mariadb-java-client")
 
-	runtimeOnly("com.h2database:h2")
-
+	testImplementation("com.h2database:h2")
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {
 		exclude(module = "junit")
 		exclude(module = "mockito-core")
 	}
+	testImplementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	testImplementation("com.ninja-squad:springmockk:4.0.0")
 	testImplementation("org.junit.jupiter:junit-jupiter-api")
 	testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
@@ -65,23 +66,8 @@ tasks.withType<KotlinCompile> {
 		freeCompilerArgs = listOf("-Xjsr305=strict")
 		jvmTarget = "17"
 	}
-//	finalizedBy("copyVueJs")
 }
 
 tasks.withType<Test> {
 	useJUnitPlatform()
 }
-
-//tasks.register<Exec>("buildVueJs") {
-//	dependsOn("bootJar")
-//	workingDir("./src/vuejs/")
-//	commandLine("npm", "run", "build")
-//}
-
-//tasks.register<Copy>("copyVueJs") {
-//	dependsOn("jar")
-//	dependsOn("buildVueJs")
-//	from("src/vuejs/dist")
-//	into(layout.buildDirectory.dir("resources/main/static/vuejs"))
-//}
-
