@@ -7,7 +7,7 @@ name: Publish Spring REST server Docker Image on Github and Docker Hub
 
 on:
   push:
-    branches: [ "release.merge-repositories" ]
+    branches: [ "release" ]
     # Publish semver tags as releases.
     tags: [ 'v*.*.*' ]
 
