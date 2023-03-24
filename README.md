@@ -47,6 +47,32 @@ Where:
 * {DATABASE_PASSWORD} is the password to access to the database
 * {NETWORK} is the network use to reach the database
 
+# License BSD 3-Clause
+
+https://raw.githubusercontent.com/pierrick-marie/springboot-discovery/main/LICENSE
+
+# Release Note
+
+### Version 0.1.0
+
+Version 0.1.0 is the first version of that project.
+
+You can access to the web server at this address: localhost:8080.
+Authors are listed at this address: localhost:8080/authors while articles are at this address: localhost:8080/articles.
+A REST API is available at this address: localhost:8080/api/{author | article}
+
+# Author
+
+Developer: Pierrick MARIE contact at pierrickmarie.info
+
+# Contribute
+
+DO not hesitate to send PL or contact me by mail.
+
+# Badges
+
+[![License](https://img.shields.io/badge/License-BSD%203--Clause-green.svg)](https://opensource.org/licenses/BSD-3-Clause) [![made-with-Kotlin](https://img.shields.io/badge/Made%20with-Kotlin-%23E34F26.svg)](https://kotlinlang.org/) [![made-with-SpringBoot](https://img.shields.io/badge/Made%20with-SpringBoot-blue.svg)](https://spring.io/projects/spring-boot)
+
 # Documentation
 
 Start with SpringBoot: https://spring.io/guides/tutorials/spring-boot-kotlin/
@@ -77,19 +103,3 @@ Start with SpringBoot: https://spring.io/guides/tutorials/spring-boot-kotlin/
 * https://spring.io/guides/tutorials/spring-security-and-angular-js/
 * https://www.baeldung.com/spring-boot-angular-web
 * https://www.bezkoder.com/spring-boot-jpa-crud-rest-api/
-
-# License BSD 3-Clause
-
-https://raw.githubusercontent.com/pierrick-marie/springboot-discovery/main/LICENSE
-
-# Author
-
-Developer: Pierrick MARIE contact at pierrickmarie.info
-
-# Contribute
-
-Do not hesitate to send PL or contact me by mail.
-
-# Badges
-
-[![License](https://img.shields.io/badge/License-BSD%203--Clause-green.svg)](https://opensource.org/licenses/BSD-3-Clause) [![made-with-Kotlin](https://img.shields.io/badge/Made%20with-Kotlin-%23E34F26.svg)](https://kotlinlang.org/) [![made-with-SpringBoot](https://img.shields.io/badge/Made%20with-SpringBoot-blue.svg)](https://spring.io/projects/spring-boot)
