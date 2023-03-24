@@ -242,9 +242,9 @@ A REST API is available at this address: localhost:8080/api/{author | article}
 
 Developer: Pierrick MARIE contact at pierrickmarie.info
 
-# Contribute
+# Contributing
 
-DO not hesitate to send PL or contact me by mail.
+Do not hesitate to improve to this program. Feel free to send PR or contact me to send comments. You are welcome to fork this project also ;)
 
 # Badges
 
