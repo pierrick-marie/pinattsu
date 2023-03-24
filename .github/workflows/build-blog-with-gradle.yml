@@ -10,8 +10,6 @@ name: Pinattsu rest server - CI/CD with Gradle and Docker
 on:
   push:
     branches: [ "release" ]
-  pull_request:
-    branches: [ "release" ]
 
 permissions:
   contents: read
@@ -29,7 +27,7 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    - name: Build with Gradle
+    - name: Build with Gradlew
       run: ./gradlew clean build bootJar
 
     - name: Set up Docker Buildx
