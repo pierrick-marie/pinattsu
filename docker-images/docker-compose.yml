@@ -10,8 +10,8 @@ services:
       context: .
       dockerfile: mariadb.Dockerfile
     # Open ports for external access
-    ports:
-     - "127.0.0.1:3306:3306"
+    # ports:
+    #  - "127.0.0.1:3306:3306"
     networks:
       - pinattsu-backend-network
     environment:
