@@ -1,4 +1,4 @@
-FROM pimarie/pinattsu-rest-server:0.1.0
+FROM pimarie/pinattsu-rest-server-jar:0.1.0
 
 COPY ./.secret-pinattsu-db-password /run/secrets/secret-pinattsu-db-password
 

@@ -5,7 +5,7 @@ services:
   # Setup MariaDB database
   database:
     container_name: pinattsu-database
-    image: pimarie/pinattsu-database:latest
+    image: pinattsu/database:latest
     build: 
       context: .
       dockerfile: mariadb.Dockerfile
@@ -13,7 +13,7 @@ services:
     # ports:
     #  - "127.0.0.1:3306:3306"
     networks:
-      - pinattsu-backend-network
+      - pinattsu-network
     environment:
       MARIADB_ROOT_PASSWORD_FILE: /run/secrets/secret-root-db-password
       MARIADB_DATABASE: pinattsu_DB
@@ -23,12 +23,12 @@ services:
   # Setup REST server
   rest-server:
     container_name: pinattsu-rest-server
-    image: pimarie/pinattsu-rest-server-run:latest
+    image: pinattsu/rest-server:latest
     build: 
       context: .
       dockerfile: spring-rest-server.Dockerfile
     networks:
-      - pinattsu-backend-network
+      - pinattsu-network
     ports: 
       - "8080:8080"
     environment:
@@ -40,6 +40,6 @@ services:
         condition: service_started
 
 networks:
-  pinattsu-backend-network:
+  pinattsu-network:
     external: false
-    name: pinattsu-backend-network
+    name: pinattsu-network
