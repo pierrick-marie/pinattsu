@@ -137,7 +137,7 @@ jobs:
 #          cache-to: type=gha,mode=max
 
       - name: Docker Build and Tag
-        run: docker build --load -t pimarie/pinattsu-rest-server:0.1.0 --file Dockerfile .
+        run: docker build -t pimarie/pinattsu-rest-server:0.1.0 --file Dockerfile .
 
       - name: Push Docker image tags to Docker Hub
         run: docker push pimarie/pinattsu-rest-server:0.1.0
