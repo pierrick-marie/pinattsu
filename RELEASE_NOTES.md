@@ -7,7 +7,11 @@ I finally chose a name for the project: Pinattsu. it means peanuts in Japanese -
 
 That version 0.1.0 is the first version of the project with that name.
 
-There is not new feature in that version.
+There is no new feature in that version.
+
+You can access to the web server at this address: localhost:8080.
+Authors are listed at this address: localhost:8080/authors while articles are at this address: localhost:8080/articles.
+A REST API is available at this address: localhost:8080/api/{author | article}
 
 # First release: V0.0.1 test CI script
 

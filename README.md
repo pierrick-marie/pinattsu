@@ -66,7 +66,11 @@ Start with SpringBoot: https://spring.io/guides/tutorials/spring-boot-kotlin/
 
 https://raw.githubusercontent.com/pierrick-marie/springboot-discovery/main/LICENSE
 
-# Auteur
+# Release notes
+
+Open the file `RELEASE_NOTES.md` to read the notes about every releases.
+
+# Author
 
 Developer: Pierrick MARIE contact at pierrickmarie.info
 
