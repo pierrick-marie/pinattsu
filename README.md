@@ -26,15 +26,12 @@ This repository contains
 
 # Run the entire project
 
-To run the project and all docker images you can use the `docker-compose.yml` file in `docker-images` folder.
-
-Before running the project, you have to put a root password for your database in the file `.docker-images/secret-root-db-password` and a password for the database user in the file `.docker-images secret-pinattsu-db-password`.
+Before running the project, you have to put a root password for your database in the file `./secret-root-db-password` and a password for the database user in the file `.secret-user-db-password`.
 
 Once the passwords are configured, run the following commands:
 
 ```shell
-cd docker-images
-docker compose up 
+./run.sh
 ```
 
 # 1. The database
@@ -58,7 +55,7 @@ The configuration of the database is finished in the `docker-compose.yml` file.
       MARIADB_ROOT_PASSWORD_FILE: /run/secrets/secret-root-db-password
       MARIADB_DATABASE: pinattsu_DB
       MARIADB_USER: pinattsu 
-      MARIADB_PASSWORD_FILE: /run/secrets/secret-pinattsu-db-password
+      MARIADB_PASSWORD_FILE: /run/secrets/secret-user-db-password
  ```
 
 The name of the database for this project is `pinattsu_DB`. MariaDB user `pinattsu` has a full access to the database. 
@@ -69,20 +66,20 @@ You have to configure the password of root and the user that will access to the 
 
 ### * Root password
 
-Put a root password in the file named `.docker-images/secret-root-db-password`.
+Put a root password in the file named `.secret-root-db-password`.
 
 ```shell
-echo "{YOUR_ROOT_PASSWORD}" > .docker-images/secret-root-db-password
+echo "{YOUR_ROOT_PASSWORD}" > .secret-root-db-password
 ```
 
 This file is ignored by git. It is copied during the build of the docker image of the database to setup the root password of mariaDB.
 
 ### * Password of mariaDB user 
 
-Put a root password in the file named `.docker-images/secret-pinattsu-db-password`.
+Put a root password in the file named `.docker-images/secret-user-db-password`.
 
 ```shell
-echo "{YOUR_USER_PASSWORD}" > .docker-images/secret-pinattsu-db-password
+echo "{YOUR_USER_PASSWORD}" > .docker-images/secret-user-db-password
 ```
 
 This file is ignored by git. It is copied during the build of the docker image of the database to setup the password of the user of mariaDB.
@@ -181,7 +178,7 @@ As you can see it's a little bit complex command. Fortunately, `docker-compose.y
     environment:
       DATABASE_URL: pinattsu-database:3306/pinattsu_DB
       DATABASE_USER: pinattsu
-      DATABASE_PASSWORD_FILE: /run/secrets/secret-pinattsu-db-password
+      DATABASE_PASSWORD_FILE: /run/secrets/secret-user-db-password
     depends_on:
       database:
         condition: service_started

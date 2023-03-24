@@ -8,7 +8,7 @@ services:
     image: pinattsu/database:latest
     build: 
       context: .
-      dockerfile: mariadb.Dockerfile
+      dockerfile: ./docker-images/mariadb.Dockerfile
     # Open ports for external access
     # ports:
     #  - "127.0.0.1:3306:3306"
@@ -18,7 +18,7 @@ services:
       MARIADB_ROOT_PASSWORD_FILE: /run/secrets/secret-root-db-password
       MARIADB_DATABASE: pinattsu_DB
       MARIADB_USER: pinattsu 
-      MARIADB_PASSWORD_FILE: /run/secrets/secret-pinattsu-db-password
+      MARIADB_PASSWORD_FILE: /run/secrets/secret-user-db-password
 
   # Setup REST server
   rest-server:
@@ -26,7 +26,7 @@ services:
     image: pinattsu/rest-server:latest
     build: 
       context: .
-      dockerfile: spring-rest-server.Dockerfile
+      dockerfile: ./docker-images/spring-rest-server.Dockerfile
     networks:
       - pinattsu-network
     ports: 
@@ -34,7 +34,7 @@ services:
     environment:
       DATABASE_URL: pinattsu-database:3306/pinattsu_DB
       DATABASE_USER: pinattsu
-      DATABASE_PASSWORD_FILE: /run/secrets/secret-pinattsu-db-password
+      DATABASE_PASSWORD_FILE: /run/secrets/secret-user-db-password
     depends_on:
       database:
         condition: service_started
