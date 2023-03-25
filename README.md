@@ -26,6 +26,12 @@ This repository contains
 
 # Run the entire project
 
+### Clone the project
+
+```
+git clone https://github.com/pierrick-marie/pinattsu.git
+```
+
 Before running the project, you have to put a root password for your database in the file `./secret-root-db-password` and a password for the database user in the file `.secret-user-db-password`.
 
 Once the passwords are configured, run the following commands:
