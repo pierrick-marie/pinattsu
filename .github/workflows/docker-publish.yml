@@ -16,7 +16,7 @@ env:
   GITHUB_REGISTRY: ghcr.io
   DOCKER_HUB_REGISTRY: docker.io
   # github.repository as <account>/<repo>
-  IMAGE_NAME: ${{ github.repository }}
+  IMAGE_NAME: pinattsu-rest-server-jar:0.1.0
 
 jobs:
   build:
@@ -118,9 +118,9 @@ jobs:
       # Build docker image
       - name: Docker Build and Tag image
         working-directory: ./spring-rest-server
-        run: docker build -t pimarie/pinattsu-rest-server-jar:0.1.0 --file Dockerfile .
+        run: docker build -t pimarie/${{ env.IMAGE_NAME }} --file Dockerfile .
 
       # Push image on docker hub
       - name: Push Docker image to Docker Hub
         working-directory: ./spring-rest-server
-        run: docker push pimarie/pinattsu-rest-server-jar:0.1.0
+        run: docker push pimarie/${{ env.IMAGE_NAME }}
